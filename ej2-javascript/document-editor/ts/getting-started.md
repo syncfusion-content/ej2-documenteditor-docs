@@ -142,7 +142,7 @@ documenteditor.appendTo('#DocumentEditor');
 
 Now, add an HTML div element to act as the DocumentEditor element in `index.html` using the following code.
 
-```
+```html
     <!DOCTYPE html>
     <html lang="en">
 
@@ -215,7 +215,7 @@ documenteditor.appendTo('#DocumentEditor');
 
 Now, add an HTML div element to act as the DocumentEditorContainer element in `index.html` using the following code.
 
-```
+```html
     <!DOCTYPE html>
     <html lang="en">
 
