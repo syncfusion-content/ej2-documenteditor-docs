@@ -1,7 +1,7 @@
 ---
 layout: post
-title: Index in ##Platform_Name## Document editor control | Syncfusion
-description: Learn here all about Index in Syncfusion ##Platform_Name## Document editor control of Syncfusion Essential JS 2 and more.
+title: Overview of ##Platform_Name## Document editor control | Syncfusion
+description: Document editor for ##Platform_Name## is used to create, edit, view and print word documents.
 platform: ej2-javascript
 control: Index 
 publishingplatform: ##Platform_Name##
@@ -9,7 +9,7 @@ documentation: ug
 domainurl: ##DomainURL##
 ---
 
-# Index in ##Platform_Name## Document editor control
+# Overview
 
 The Document Editor component is used to create, edit, view, and print Word documents in web applications. All the user interactions and editing operations that run purely in the client-side provides much faster editing experience to the users.
 
@@ -35,6 +35,8 @@ The Document Editor component is used to create, edit, view, and print Word docu
 * Provides a [server-side helper library](../document-editor/web-services) to open the Word documents like DOCX, DOC, WordML, RTF, and Text, by converting it to SFDT file format.
 
 ## Supported Web platforms
+
+### Other platforms
 
 * [Javascript(ES5)](https://ej2.syncfusion.com/javascript/documentation/document-editor/getting-started/)
 * [Javascript](https://ej2.syncfusion.com/documentation/document-editor/getting-started/)
