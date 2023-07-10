@@ -49,7 +49,7 @@ container.documentEditor.editor.insertText('\n');
 
 ## Insert the rich-text content
 
-To insert the HTML content, you have to convert the HTML content to SFDT Format using [`web service`](../../document-editor/web-services). Then use [`paste`](../../api/document-editor/editor/#paste) API to insert the sfdt at current cursor position.
+To insert the HTML content, you have to convert the HTML content to SFDT Format using [`web service`](../../document-editor/web-services-overview). Then use [`paste`](../../api/document-editor/editor/#paste) API to insert the sfdt at current cursor position.
 
 >Note: Html string should be welformatted html. [`DocIO`](https://help.syncfusion.com/file-formats/docio/html) support only welformatted XHTML.  
 
