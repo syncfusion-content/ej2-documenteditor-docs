@@ -31,7 +31,7 @@ spellChecker.allowSpellCheckAndSuggestion = true;
 ```
 
 >Note: Document Editor requires server-side dependencies for spell check configuration.
-Refer to the [Document Editor Web API service projects from GitHub](https://github.com/SyncfusionExamples/EJ2-Document-Editor-Web-Services/tree/master/ASP.NET%20Core#spell-check) link for configuring spell checker in server-side.To know about server-side dependencies, please refer this [page](../document-editor/web-services).
+Refer to the [Document Editor Web API service projects from GitHub](https://github.com/SyncfusionExamples/EJ2-Document-Editor-Web-Services/tree/master/ASP.NET%20Core#spell-check) link for configuring spell checker in server-side.To know about server-side dependencies, please refer this [page](../document-editor/web-services-overview).
 
 ## Features
 
