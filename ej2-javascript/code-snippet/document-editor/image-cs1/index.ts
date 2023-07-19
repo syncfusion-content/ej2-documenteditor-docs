@@ -13,7 +13,8 @@ let documenteditor: DocumentEditor = new DocumentEditor({
     height: '370px'
 });
 documenteditor.appendTo('#DocumentEditor');
-
+//Insert Image From URL with alternate text
+documenteditor.editor.insertImage('https://cdn.syncfusion.com/content/images/Logo/Logo_Black_72dpi_without.png', 200, 200, 'Syncfusion');
 let insertPictureButton: Button = new Button();
 insertPictureButton.appendTo('#insert-picture');
 
