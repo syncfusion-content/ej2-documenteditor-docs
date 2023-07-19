@@ -40,9 +40,15 @@ Document Editor supports common raster format images like PNG, BMP, JPEG, SVG an
 {% previewsample "page.domainurl/code-snippet/document-editor/image-cs1" %}
 {% endif %}
 
-Image files will be internally converted to base64 string. Whereas, online images are preserved as URL.
+N> 1. Image files will be internally converted to base64 string. Whereas, online images are preserved as URL. N> 2. EMF and WMF images can't be inserted, but these types of images will be preserved in Document Editor when using ASP.NET MVC Web API.
 
->Note: EMF and WMF images can't be inserted, but these types of images will be preserved in Document Editor when using ASP.NET MVC Web API.
+## Alternate text
+
+Document Editor expose API to get or set the alternate text of the selected image. Refer to the following sample code.
+
+```ts
+documenteditor.selection.imageFormat.alternateText = 'Adventure Cycle';
+```
 
 ## Image resizing
 

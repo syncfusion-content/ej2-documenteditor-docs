@@ -206,7 +206,41 @@ The following example code illustrates how to write a Web API for paste with for
     public String systemClipboard(@RequestBody CustomParameter param) {
         if (param.content != null && param.content != "") {
             try {
-                return  WordProcessorHelper.loadString(param.content, GetFormatType(param.type.toLowerCase()));
+                                MetafileImageParsedEventHandler metafileImageParsedEvent = new MetafileImageParsedEventHandler() {
+
+                ListSupport<MetafileImageParsedEventHandler> delegateList = new ListSupport<MetafileImageParsedEventHandler>(
+                        MetafileImageParsedEventHandler.class);
+
+                // Represents event handling for MetafileImageParsedEventHandlerCollection.
+                public void invoke(Object sender, MetafileImageParsedEventArgs args) throws Exception {
+                    OnMetafileImageParsed(sender, args);
+                }
+
+                // Represents the method that handles MetafileImageParsed event.
+                public void dynamicInvoke(Object... args) throws Exception {
+                    OnMetafileImageParsed((Object) args[0], (MetafileImageParsedEventArgs) args[1]);
+                }
+
+                // Represents the method that handles MetafileImageParsed event to add collection item.
+                public void add(MetafileImageParsedEventHandler delegate) throws Exception {
+                    if (delegate != null)
+                        delegateList.add(delegate);
+                }
+
+                // Represents the method that handles MetafileImageParsed event to remove collection
+                // item.
+                public void remove(MetafileImageParsedEventHandler delegate) throws Exception {
+                    if (delegate != null)
+                        delegateList.remove(delegate);
+                }
+            };
+            // Hooks MetafileImageParsed event.
+            WordProcessorHelper.MetafileImageParsed.add("OnMetafileImageParsed", metafileImageParsedEvent);
+                // Converts Clipboard content to SFDT DOM.
+            String sfdtContent = WordProcessorHelper.loadString(param.content, GetFormatType(param.type.toLowerCase()));
+            // Unhooks MetafileImageParsed event.
+            WordProcessorHelper.MetafileImageParsed.remove("OnMetafileImageParsed", metafileImageParsedEvent);
+            return sfdtContent;
             } catch (Exception e) {
                 return "";
             }
@@ -230,7 +264,16 @@ The following example code illustrates how to write a Web API for paste with for
             type = value;
         }
     }
+    
+    // Converts Metafile to raster image.
+    private static void OnMetafileImageParsed(Object sender, MetafileImageParsedEventArgs args) {
+        // You can write your own method definition for converting metafile to raster
+        // image using any third-party image converter.
+        args.setImageStream(ConvertMetafileToRasterImage(args.getMetafileStream())) ;
+    }
 ```
+
+>Note: The web browsers do not support to display metafile images like EMF and WMF. As a fallback approach, you can convert the metafile to raster image using any image converter in the `MetafileImageParsed` event and this fallback raster image will be displayed in the client-side Document editor component.
 
 ## Restrict editing
 

@@ -23,7 +23,7 @@ The following code shows how to set currentUser
 documentEditor.currentUser = 'engineer@mycompany.com';
 ```
 
-# Highlighting the text area
+# Customize highlight color of text area
 
 You can highlight the editable region of the current user using the `userColor` property.
 
@@ -31,6 +31,16 @@ The following code shows how to set userColor.
 
 ```ts
 documentEditor.userColor = '#fff000';
+```
+
+# Highlighting the editable text area
+
+You can toggle the highlight the editable region value using the "highlightEditableRanges" property.
+
+The folowing code shows how to toggle the highlight editable region value.
+
+```typescript
+documentEditor.documentEditorSettings.highlightEditableRanges = true; 
 ```
 
 # Restrict Editing Pane

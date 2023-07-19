@@ -67,4 +67,4 @@ document.getElementById('export').addEventListener('click', () => {
 
 ```
 
-> DocumentEditor object is available in DocumentEditorContainer component(DocumentEditor packaged with toolbar, statusbar & properties pane) as [`documentEditor`](../api/document-editor-container#documenteditor-code-classlanguage-textdocumenteditorcode/)
+> DocumentEditor object is available in DocumentEditorContainer component(DocumentEditor packaged with toolbar, statusbar & properties pane) as [`documentEditor`](../../api/document-editor-container#documenteditor)

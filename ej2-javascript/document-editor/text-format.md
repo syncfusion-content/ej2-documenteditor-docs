@@ -169,6 +169,8 @@ documenteditor.selection.characterFormat.highlightColor = 'Pink';
 documenteditor.selection.characterFormat.highlightColor = '#FFC0CB';
 ```
 
+N> 1. Character scaling and spacing present in the input Word document will be preserved in the exported Word document. N> 2. Scaling is implemented using the letterSpacing property, which may present compatibility problems. For more information, please refer to this [link](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/letterSpacing#browser_compatibility)
+
 ## Toolbar with options for text formatting
 
 Refer to the following example.

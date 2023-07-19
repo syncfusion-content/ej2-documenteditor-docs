@@ -18,7 +18,7 @@ Track Changes allows you to keep a record of changes or edits made to a document
 The following example demonstrates how to enable track changes.
 
 ```ts
-let container: DocumentEditorContainer = new DocumentEditorContainer({ enableTrackChanges: true });
+var container = new ej.documenteditor.DocumentEditorContainer({ enableTrackChanges: true });
 container.appendTo('#container');
 ```
 
@@ -27,13 +27,13 @@ container.appendTo('#container');
 The following example demonstrate how to get all tracked revision from current document.
 
 ```ts
-let container: DocumentEditorContainer = new DocumentEditorContainer({ enableTrackChanges: true });
+var container = new ej.documenteditor.DocumentEditorContainer({ enableTrackChanges: true });
 container.appendTo('#container');
 
 /**
  * Get revisions from the current document
  */
-let revisions: RevisionCollection = container.documentEditor.revisions;
+var revisions = container.documentEditor.revisions;
 ```
 
 ## Accept or Reject all changes programmatically
@@ -41,12 +41,12 @@ let revisions: RevisionCollection = container.documentEditor.revisions;
 The following example demonstrates how to accept/reject all changes.
 
 ```ts
-let container: DocumentEditorContainer = new DocumentEditorContainer({ enableTrackChanges: true });
+var container = new ej.documenteditor.DocumentEditorContainer({ enableTrackChanges: true });
 container.appendTo('#container');
 /**
  * Get revisions from the current document
  */
-let revisions: RevisionCollection = container.documentEditor.revisions;
+var revisions = container.documentEditor.revisions;
 
 /**
  * Accept all tracked changes
@@ -67,7 +67,7 @@ The following example demonstrates how to accept/reject specific revision in the
 /**
  * Get revisions from the current document
  */
-let revisions: RevisionCollection = container.documentEditor.revisions;
+var revisions = container.documentEditor.revisions;
 /**
  * Accept specific changes
  */
@@ -83,7 +83,7 @@ revisions.get(1).reject();
 The following example demonstrates how to navigate tracked revision programmatically.
 
 ```ts
-let container: DocumentEditorContainer = new DocumentEditorContainer({ enableTrackChanges: true });
+var container = new ej.documenteditor.DocumentEditorContainer({ enableTrackChanges: true });
 container.appendTo('#container');
 /**
  * Navigate to next tracked change from the current selection.
@@ -111,11 +111,11 @@ Document editor provides an option to protect and unprotect document using [`enf
 The following example code illustrates how to enforce and stop protection in Document editor container.
 
 ```ts
-let container: DocumentEditorContainer = new DocumentEditorContainer({
+var container = new ej.documenteditor.DocumentEditorContainer({
   enableToolbar: true,
   height: '590px',
 });
-DocumentEditorContainer.Inject(Toolbar);
+ej.documenteditor.DocumentEditorContainer.Inject(Toolbar);
 container.serviceUrl =
   'http://localhost:5000/api/documenteditor/';
 container.appendTo('#container');
@@ -132,3 +132,30 @@ Tracked changes only protection can be enabled in UI by using [Restrict Editing 
 ![Enable track changes only protection](images/tracked-changes.png)
 
 >Note: In enforce Protection method, first parameter denotes password and second parameter denotes protection type. Possible values of protection type are `NoProtection |ReadOnly |FormFieldsOnly |CommentsOnly |RevisionsOnly`. In stop protection method, parameter denotes the password.
+
+## Events
+
+DocumentEditor provides [beforeAcceptRejectChanges](../api/document-editor-container#beforeacceptrejectchanges) event, which is triggered before a tracked content is accepted or rejected. This event provides an opportunity to perform custom logic before accepting or rejecting changes. The event handler receives the [RevisionActionEventArgs](../api/document-editor/revisionActionEventArgs) object as an argument, which allows access to information about the tracked content. . 
+
+To demonstrate a specific use case, let's consider an example where we want to restrict the accept and reject changes functionality based on the author name. The following code snippet illustrates how to allow only the author of the tracked content to accept or reject changes:
+
+```typescript
+var container = new ej.documenteditor.DocumentEditorContainer({ 
+  beforeAcceptRejectChanges:{beforeAcceptRejectChanges},
+  enableToolbar: true,
+  height: '590px',
+  currentUser: 'Hary'
+});
+ej.documenteditor.DocumentEditorContainer.Inject(ej.documenteditor.Toolbar);
+
+container.appendTo('#container');
+
+// Event get triggerd before accepting/rejecting changes
+function beforeAcceptRejectChanges(args) {
+  // Check the author of the revision and current user are different
+  if (args.author !== container.currentUser) {
+    // Cancel the accept/reject action
+    args.cancel = true;
+  }
+}
+```
