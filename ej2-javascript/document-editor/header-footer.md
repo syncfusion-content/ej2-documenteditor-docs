@@ -81,8 +81,8 @@ container.documentEditor.selection.sectionFormat.firstPageHeader.linkToPrevious 
 container.documentEditor.selection.sectionFormat.firstPageFooter.linkToPrevious = false;
 
 //Even page
-container.documentEditor.selection.sectionFormat.firstPageHeader.linkToPrevious = false;
-container.documentEditor.selection.sectionFormat.firstPageFooter.linkToPrevious = false;
+container.documentEditor.selection.sectionFormat.evenPageHeader.linkToPrevious = false;
+container.documentEditor.selection.sectionFormat.evenPageFooter.linkToPrevious = false;
 ```
 
 >Note: When there is more than one section in the document, the Link to Previous option becomes available. By default, this feature is disabled state in UI and set to return false for the first section.

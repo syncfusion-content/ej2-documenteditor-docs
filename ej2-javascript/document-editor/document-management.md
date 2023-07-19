@@ -23,7 +23,7 @@ The following code shows how to set currentUser
 documentEditor.currentUser = 'engineer@mycompany.com';
 ```
 
-# Customize highlight color the text area
+# Customize highlight color of text area
 
 You can highlight the editable region of the current user using the `userColor` property.
 
