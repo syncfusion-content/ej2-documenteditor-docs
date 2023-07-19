@@ -109,7 +109,11 @@ The following example code illustrates how to write a Web API for paste with for
         {
             try
             {
+                //Hooks MetafileImageParsed event.
+                WordDocument.MetafileImageParsed += OnMetafileImageParsed;
                 WordDocument document = WordDocument.LoadString(param.content, GetFormatType(param.type.ToLower()));
+                //Unhooks MetafileImageParsed event.
+                WordDocument.MetafileImageParsed -= OnMetafileImageParsed;
                 string json = Newtonsoft.Json.JsonConvert.SerializeObject(document);
                 document.Dispose();
                 return json;
@@ -127,7 +131,16 @@ The following example code illustrates how to write a Web API for paste with for
         public string content { get; set; }
         public string type { get; set; }
     }
+
+    //Converts Metafile to raster image.
+    private static void OnMetafileImageParsed(object sender, MetafileImageParsedEventArgs args)
+    {
+    //You can write your own method definition for converting metafile to raster image using any third-party image converter.
+    args.ImageStream = ConvertMetafileToRasterImage(args.MetafileStream);
+    }
 ```
+
+>Note: The web browsers do not support to display metafile images like EMF and WMF. As a fallback approach, you can convert the metafile to raster image using any image converter in the [MetafileImageParsed](https://help.syncfusion.com/cr/aspnetcore-js2/Syncfusion.EJ2.DocumentEditor.WordDocument.html#Syncfusion_EJ2_DocumentEditor_WordDocument_MetafileImageParsed) event and this fallback raster image will be displayed in the client-side Document editor component.
 
 ## Restrict editing
 

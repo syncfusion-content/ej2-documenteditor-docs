@@ -6,7 +6,8 @@ var documenteditor = new ej.documenteditor.DocumentEditor({
     enableEditorHistory: true
 });
 documenteditor.appendTo('#DocumentEditor');
-
+//Insert Image From URL with alternate text
+documenteditor.editor.insertImage('https://cdn.syncfusion.com/content/images/Logo/Logo_Black_72dpi_without.png', 200, 200, 'Syncfusion');
 document.getElementById('insert-picture').addEventListener('click', () => {
     var pictureUpload = document.getElementById("insertImageButton");
     pictureUpload.value = '';
