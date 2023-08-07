@@ -9,9 +9,25 @@ documentation: ug
 domainurl: ##DomainURL##
 --- 
 
-# Saving the document to Azure Blob Storage in ##Platform_Name## Document editor control
+# Saving the document to Azure Blob Storage in ##Platform_Name## Document editor control 
 
-Document Editor exports the document into various known file formats in client-side such as Microsoft Word document (.docx), text document (.txt), and its own format called **Syncfusion Document Text (.sfdt)**. We will guide you through the steps to save your documents in cloud storage.
+Document Editor exports the document into various known file formats in client-side such as Microsoft Word document (.docx), text document (.txt), and its own format called **Syncfusion Document Text (.sfdt)**. We will guide you through the steps to save your documents in cloud storage. 
+
+{% if page.publishingplatform == "typescript" %}
+
+## Step 1: Create a Simple Document Editor Sample in Typescript 
+
+* Start by following the steps provided in this [`link`](../ts/getting-started.md) to create a simple Document Editor sample in Typescript. This will give you a basic setup of the Document Editor component.
+
+{% elsif page.publishingplatform == "javascript" %}
+
+## Step 1: Create a Simple Document Editor Sample in Javascript
+
+* Start by following the steps provided in this [`link`](../js/getting-started.md) to create a simple Document Editor sample in Javascript. This will give you a basic setup of the Document Editor component.
+
+{% endif %}
+
+## Step 2: Modify the index File in the Document Editor sample
 
 * In the client-side, the document is saved as sfdt using using [`serialize`](../../api/document-editor/#serialize) method which save's the document as **Syncfusion Document Text (.sfdt)** and sent to server-side for saving in Azure Blob Storage.
 
@@ -36,7 +52,21 @@ Document Editor exports the document into various known file formats in client-s
 
 {% endif %}
 
+## Step 3: To use web service projects in.NET Core, refer to this [`link`](../web-services/core.md).
+
+* Import the required namespaces at the top of the DocumentEditorController.cs file:
+
+```c#
+
+using Azure.Storage.Blobs;
+
+```
+
+>Note: The Azure.Storage.Blobs NuGet package must be installed in your application to use the previous code example.
+
 * In the server-side, Export the **Syncfusion Document Text (.sfdt)** to Word document and upload to the blob storage.
+
+* Add the SaveToAzure() method and add the necessary values to save the document to Azure Blob Storage
 
 ```c#
 [AcceptVerbs("Post")]
@@ -63,3 +93,4 @@ public async Task SaveToAzure([FromBody] SaveParameter data)
     stream.Close();
 }
 ```
+>Note: Replace Your Connection string from Azure with the actual connection string for your Azure Blob Storage account and Your container name in Azure with the actual container name and your blob name in Azure with the actual blob name
