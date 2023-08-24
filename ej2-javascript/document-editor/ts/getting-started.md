@@ -37,15 +37,15 @@ Following is the list of minimum dependencies required to use the Document Edito
 
 The Document Editor component requires server-side interactions for the following operations:
 
-* [Open file formats other than SFDT](https://ej2.syncfusion.com/documentation/document-editor/import#convert-word-documents-into-sfdt)
-* [Paste with formatting](https://ej2.syncfusion.com/documentation/document-editor/clipboard#paste-with-formatting)
-* [Restrict editing](https://ej2.syncfusion.com/documentation/document-editor/document-management)
-* [Spellcheck](https://ej2.syncfusion.com/documentation/document-editor/spell-check)
-* [Save as file formats other than SFDT and DOCX](https://ej2.syncfusion.com/documentation/document-editor/saving-documents/server-side-export)
+* [Open file formats other than SFDT](../document-editor/import#convert-word-documents-into-sfdt)
+* [Paste with formatting](../document-editor/clipboard#paste-with-formatting)
+* [Restrict editing](../document-editor/document-management)
+* [Spellcheck](../document-editor/spell-check)
+* [Save as file formats other than SFDT and DOCX](../document-editor/server-side-export)
 
 >Note: If you don't require the above functionalities then you can deploy as pure client-side component without any server-side interactions.
 
-To know about server-side dependencies, please refer this [page](https://ej2.syncfusion.com/documentation/document-editor/web-services-overview).
+To know about server-side dependencies, please refer this [page](../document-editor/web-services-overview).
 
 ## Installation and configuration
 
@@ -59,7 +59,7 @@ npm install
 
 ## Configuring system JS
 
-[Syncfusion DocumentEditor packages](https://ej2.syncfusion.com/documentation/document-editor/getting-started#dependencies/) have to be mapped in the `system.config.js` configuration file.
+[Syncfusion DocumentEditor packages](#dependencies/) have to be mapped in the `system.config.js` configuration file.
 
 ```javascript
 System.config({
@@ -108,13 +108,13 @@ This can be referenced in your `[src/styles/styles.css]` using the following cod
 @import '../../node_modules/@syncfusion/ej2/material.css';
 ```
 
-> To know about individual component CSS, please refer to [Individual Component theme files](https://ej2.syncfusion.com/documentation/appearance/theme#referring-individual-control-theme/) section.
+> To know about individual component CSS, please refer to [Individual Component theme files](../appearance/theme#referring-individual-control-theme/) section.
 
 ## Adding component
 
 You can add `DocumentEditorContainer` component with  predefined toolbar and properties pane options or `DocumentEditor` component with customize options.
 
->Note: Starting from `v19.3.0.x`, we have optimized the accuracy of text size measurements such as to match Microsoft Word pagination for most Word documents. This improvement is included as default behavior along with an optional API [to disable it and retain the document pagination behavior of older versions](https://ej2.syncfusion.com/documentation/document-editor/how-to/disable-optimized-text-measuring).
+>Note: Starting from `v19.3.0.x`, we have optimized the accuracy of text size measurements such as to match Microsoft Word pagination for most Word documents. This improvement is included as default behavior along with an optional API [to disable it and retain the document pagination behavior of older versions](../document-editor/how-to/disable-optimized-text-measuring).
 
 ### Document Editor component
 
@@ -267,7 +267,7 @@ DocumentEditorContainer output will be displayed as follows.
 
 ## Frequently Asked Questions
 
-* [How to localize the Documenteditor container](https://ej2.syncfusion.com/documentation/document-editor/global-local).
-* [How to load the document by default](https://ej2.syncfusion.com/documentation/document-editor/how-to/open-default-document).
-* [How to customize tool bar](https://ej2.syncfusion.com/documentation/document-editor/how-to/customize-tool-bar).
-* [How to resize Document editor component?](https://ej2.syncfusion.com/documentation/document-editor/how-to/resize-document-editor)
+* [How to localize the Documenteditor container](../document-editor/global-local).
+* [How to load the document by default](../document-editor/how-to/open-default-document).
+* [How to customize tool bar](../document-editor/how-to/customize-tool-bar).
+* [How to resize Document editor component?](../document-editor/how-to/resize-document-editor)

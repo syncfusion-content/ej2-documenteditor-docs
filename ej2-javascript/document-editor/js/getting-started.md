@@ -248,23 +248,23 @@ Now, run the `index.html` in web browser, it will render the `Essential JS 2 Doc
 
 The Document Editor component requires server-side interactions for the following operations:
 
-* [Open file formats other than SFDT](https://ej2.syncfusion.com/javascript/documentation/document-editor/import#convert-word-documents-into-sfdt)
-* [Paste with formatting](https://ej2.syncfusion.com/javascript/documentation/document-editor/clipboard#paste-with-formatting)
-* [Restrict editing](https://ej2.syncfusion.com/javascript/documentation/document-editor/document-management)
-* [Spellcheck](https://ej2.syncfusion.com/javascript/documentation/document-editor/spell-check)
-* [Save as file formats other than SFDT and DOCX](https://ej2.syncfusion.com/javascript/documentation/document-editor/saving-documents/server-side-export)
+* [Open file formats other than SFDT](../document-editor/import#convert-word-documents-into-sfdt)
+* [Paste with formatting](../document-editor/clipboard#paste-with-formatting)
+* [Restrict editing](../document-editor/document-management)
+* [Spellcheck](../document-editor/spell-check)
+* [Save as file formats other than SFDT and DOCX](../document-editor/server-side-export)
 
 >Note: If you don't require the above functionalities then you can deploy as pure client-side component without any server-side interactions.
 
-Please refer the [example from GitHub](https://github.com/SyncfusionExamples/EJ2-DocumentEditor-WebServices) to configure the web service and set the [serviceUrl](https://ej2.syncfusion.com/javascript/documentation/api/document-editor-container/#serviceurl).
+Please refer the [example from GitHub](https://github.com/SyncfusionExamples/EJ2-DocumentEditor-WebServices) to configure the web service and set the [serviceUrl](../api/document-editor-container/#serviceurl).
 
 Syncfusion provides a predefined [Word Processor server docker image](https://hub.docker.com/r/syncfusion/word-processor-server) targeting ASP.NET Core 2.1 framework. You can directly pull this docker image and deploy it in server on the go. You can also create own docker image by customizing the existing [docker project from GitHub](https://github.com/SyncfusionExamples/Word-Processor-Server-Docker).
 
->Note: Staring from `v19.3.0.x`, we have optimized the accuracy of text size measurements such as to match Microsoft Word pagination for most Word documents. This improvement is included as default behavior along with an optional API [to disable it and retain the document pagination behavior of older versions](https://ej2.syncfusion.com/javascript/documentation/document-editor/how-to/disable-optimized-text-measuring)..
+>Note: Staring from `v19.3.0.x`, we have optimized the accuracy of text size measurements such as to match Microsoft Word pagination for most Word documents. This improvement is included as default behavior along with an optional API [to disable it and retain the document pagination behavior of older versions](../document-editor/how-to/disable-optimized-text-measuring)..
 
 ## Frequently Asked Questions
 
-* [How to localize the Documenteditor container](https://ej2.syncfusion.com/javascript/documentation/document-editor/global-local).
-* [How to load the document by default](https://ej2.syncfusion.com/javascript/documentation/document-editor/how-to/open-default-document).
-* [How to customize tool bar](https://ej2.syncfusion.com/javascript/documentation/document-editor/how-to/customize-tool-bar).
-* [How to resize Document editor component?](https://ej2.syncfusion.com/javascript/documentation/document-editor/how-to/resize-document-editor)
+* [How to localize the Documenteditor container](../document-editor/global-local).
+* [How to load the document by default](../document-editor/how-to/open-default-document).
+* [How to customize tool bar](../document-editor/how-to/customize-tool-bar).
+* [How to resize Document editor component?](../document-editor/how-to/resize-document-editor)
