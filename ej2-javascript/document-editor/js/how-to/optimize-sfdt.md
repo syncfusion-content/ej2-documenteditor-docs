@@ -27,55 +27,31 @@ As a backward compatibility to create older format SFDT files, refer the followi
 <tr>
 <td>Client-side</td>
 <td>
-
-```ts
 var documenteditorContainer = new ej.documenteditor.DocumentEditorContainer();
-```
-
 </td>
 <td>
-
-```ts
 var documenteditorContainer = new ej.documenteditor.DocumentEditorContainer({ documentEditorSettings: { optimizeSfdt: false } });
-```
-
 </td>
 </tr>
 <tr>
 <td>Server-side C#</td>
 <td>
-
-```c#
 WordDocument sfdtDocument = WordDocument.Load(stream, formatType);
 string sfdt = Newtonsoft.Json.JsonConvert.SerializeObject(sfdtDocument);
-```
-
 </td>
 <td>
-
-```c#
 WordDocument sfdtDocument = WordDocument.Load(stream, formatType);
 sfdtDocument.OptimizeSfdt = false;
 string sfdt = Newtonsoft.Json.JsonConvert.SerializeObject(sfdtDocument);
-```
-
 </td>
 </tr>
 <tr>
 <td>Server-side Java</td>
 <td>
-
-```java
 String sfdtDocument = WordProcessorHelper.load(stream, formatType);
-```
-
 </td>
 <td>
-
-```java
 String sfdtDocument = WordProcessorHelper.load(stream, formatType, false);
-```
-
 </td>
 </tr>
 </table>
@@ -89,36 +65,24 @@ To convert from older format SFDT from a new optimized SFDT file, refer the foll
 <tr>
 <td>Client-side</td>
 <td>
-
-```ts
 var documenteditorContainer = new ej.documenteditor.DocumentEditorContainer({ documentEditorSettings: { optimizeSfdt: false } });
-```
-
 </td>
 </tr>
 <tr>
 <td>Server-side C#</td>
 <td>
-
-```c#
 using(Syncfusion.DocIO.DLS.WordDocument docIODocument = WordDocument.Save(optimizedSfdt)) {
-sfdtDocument = WordDocument.Load(docIODocument);
-sfdtDocument.OptimizeSfdt = false;
-string oldSfdt = JsonSerializer.Serialize(sfdtDocument);
+   sfdtDocument = WordDocument.Load(docIODocument);
+   sfdtDocument.OptimizeSfdt = false;
+   string oldSfdt = JsonSerializer.Serialize(sfdtDocument);
 }
-```
-
 </td>
 </tr>
 <tr>
 <td>Server-side Java</td>
 <td>
-
-```java
 WordDocument docIODocument = WordProcessorHelper.save(optimizedSfdt);
 String oldSfdt = WordProcessorHelper.load(docIODocument, false);
-```
-
 </td>
 </tr>
 </table>
