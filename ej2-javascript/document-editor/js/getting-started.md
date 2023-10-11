@@ -211,14 +211,14 @@ Now, run the `index.html` in web browser, it will render the **Essential JS 2 Do
 **Step 2:** The Essential JS 2 component's global scripts and styles are already hosted in the below CDN link formats.
 
 **Syntax:**
-> Script: `https://cdn.syncfusion.com/ej2/{PACKAGE_NAME}/dist/global/{PACKAGE_NAME}.min.js`
+> Script: `https://cdn.syncfusion.com/ej2/23.1.36/{PACKAGE_NAME}/dist/global/{PACKAGE_NAME}.min.js`
 >
-> Styles: `https://cdn.syncfusion.com/ej2/{PACKAGE_NAME}/styles/material.css`
+> Styles: `https://cdn.syncfusion.com/ej2/23.1.36/{PACKAGE_NAME}/styles/material.css`
 
 **Example:**
-> Script: [`https://cdn.syncfusion.com/ej2/ej2-documenteditor/dist/global/ej2-documenteditor.min.js`](https://cdn.syncfusion.com/ej2/ej2-documenteditor/dist/global/ej2-documenteditor.min.js)
+> Script: [`https://cdn.syncfusion.com/ej2/23.1.36/ej2-documenteditor/dist/global/ej2-documenteditor.min.js`](https://cdn.syncfusion.com/ej2/23.1.36/ej2-documenteditor/dist/global/ej2-documenteditor.min.js)
 >
-> Styles: [`https://cdn.syncfusion.com/ej2/ej2-documenteditor/styles/material.css`](https://cdn.syncfusion.com/ej2/ej2-documenteditor/styles/material.css)
+> Styles: [`https://cdn.syncfusion.com/ej2/23.1.36/ej2-documenteditor/styles/material.css`](https://cdn.syncfusion.com/ej2/23.1.36/ej2-documenteditor/styles/material.css)
 
 **Step 3:** Create a HTML page (index.html) in `app` location and add the CDN link references. Now, add the `Div` element and initiate the `Essential JS 2 DocumentEditor` component in the index.html by using following code.
 
