@@ -54,15 +54,23 @@ To know about server-side dependencies, please refer this [page](../document-edi
 
 Open the command prompt from the required directory, and run the following command to clone the Syncfusion JavaScript (Essential JS 2) quickstart project from [GitHub](https://github.com/SyncfusionExamples/ej2-quickstart-webpack-).
 
-```
-    git clone https://github.com/SyncfusionExamples/ej2-quickstart-webpack- ej2-quickstart
-```
+{% tabs %}
+{% highlight bash tabtitle="CMD" %}
+
+git clone https://github.com/SyncfusionExamples/ej2-quickstart-webpack- ej2-quickstart
+
+{% endhighlight %}
+{% endtabs %}
 
 After cloning the application in the `ej2-quickstart` folder, run the following command line to navigate to the `ej2-quickstart` folder.
 
-```
-    cd ej2-quickstart
-```
+{% tabs %}
+{% highlight bash tabtitle="CMD" %}
+
+cd ej2-quickstart
+
+{% endhighlight %}
+{% endtabs %}
 
 ## Add Syncfusion JavaScript packages
 
@@ -70,9 +78,13 @@ Syncfusion JavaScript (Essential JS 2) packages are available on the [npmjs.com]
 
 The quickstart application is preconfigured with the dependent [@syncfusion/ej2](https://www.npmjs.com/package/@syncfusion/ej2) package in the `~/package.json` file. Use the following command to install the dependent npm packages from the command prompt.
 
-```
-    npm install
-```
+{% tabs %}
+{% highlight bash tabtitle="NPM" %}
+
+npm install
+
+{% endhighlight %}
+{% endtabs %}
 
 ## Import the Syncfusion CSS styles
 
@@ -80,9 +92,13 @@ Syncfusion JavaScript controls come with [built-in themes](https://ej2.syncfusio
 
 The quickstart application is preconfigured to use the `Material` theme in the `~/src/styles/styles.css` file, as shown below: 
 
-```
-  @import "../../node_modules/@syncfusion/ej2/material.css";
-```
+{% tabs %}
+{% highlight css tabtitle="style.css" %}
+
+@import "../../node_modules/@syncfusion/ej2/material.css";
+
+{% endhighlight %}
+{% endtabs %}
 
 > You can check out the [themes](https://ej2.syncfusion.com/documentation/appearance/theme/) section to know more about built-in themes and CSS reference for individual controls.
 
@@ -102,7 +118,9 @@ You can start adding Essential JS 2 documenteditor component to the application.
 
 Place the following code in the `app.ts`.
 
-```ts
+{% tabs %}
+{% highlight ts tabtitle="app.ts" %}
+
 import { DocumentEditor } from '@syncfusion/ej2-documenteditor';
 
 // Initialize Document Editor component.
@@ -114,37 +132,46 @@ documenteditor.enableAllModules();
 // Render the Document Editor component.
 documenteditor.appendTo('#DocumentEditor');
 
-```
+{% endhighlight %}
+{% endtabs %}
 
 Now, add an HTML div element to act as the DocumentEditor element in `index.html` using the following code.
 
-```html
-    <!DOCTYPE html>
-    <html lang="en">
+{% tabs %}
+{% highlight html tabtitle="index.html" %}
 
-    <head>
-        <title>Essential JS 2</title>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
-        <meta name="description" content="Essential JS 2" />
-        <meta name="author" content="Syncfusion" />
-    </head>
+<!DOCTYPE html>
+<html lang="en">
 
-    <body>
-        <!--Element which will render as DocumentEditor -->
-        <div id="DocumentEditor"></div>
-    </body>
+<head>
+    <title>Essential JS 2</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+    <meta name="description" content="Essential JS 2" />
+    <meta name="author" content="Syncfusion" />
+</head>
 
-    </html>
-```
+<body>
+    <!--Element which will render as DocumentEditor -->
+    <div id="DocumentEditor"></div>
+</body>
+
+</html>
+
+{% endhighlight %}
+{% endtabs %}
 
 #### Run the Document Editor application
 
 The quickstart project is configured to compile and run the application in the browser. Use the following command to run the application.
 
-```
+{% tabs %}
+{% highlight bash tabtitle="NPM" %}
+
 npm start
-```
+
+{% endhighlight %}
+{% endtabs %}
 
 Documenteditor output will be displayed as follows.
 
@@ -169,7 +196,9 @@ You can start adding Essential JS 2 documenteditor container component to the ap
 
 Place the following code in the `app.ts`.
 
-```ts
+{% tabs %}
+{% highlight ts tabtitle="app.ts" %}
+
 import { DocumentEditorContainer, Toolbar } from '@syncfusion/ej2-documenteditor';
 
 DocumentEditorContainer.Inject(Toolbar);
@@ -178,37 +207,46 @@ let documenteditor: DocumentEditorContainer = new DocumentEditorContainer({ enab
 
 documenteditor.appendTo('#DocumentEditor');
 
-```
+{% endhighlight %}
+{% endtabs %}
 
 Now, add an HTML div element to act as the DocumentEditorContainer element in `index.html` using the following code.
 
-```html
-    <!DOCTYPE html>
-    <html lang="en">
+{% tabs %}
+{% highlight html tabtitle="index.html" %}
 
-    <head>
-        <title>Essential JS 2</title>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
-        <meta name="description" content="Essential JS 2" />
-        <meta name="author" content="Syncfusion" />
-    </head>
+<!DOCTYPE html>
+<html lang="en">
 
-    <body>
-        <!--Element which will render as DocumentEditorContainer -->
-        <div id="DocumentEditor"></div>
-    </body>
+<head>
+    <title>Essential JS 2</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+    <meta name="description" content="Essential JS 2" />
+    <meta name="author" content="Syncfusion" />
+</head>
 
-    </html>
-```
+<body>
+    <!--Element which will render as DocumentEditorContainer -->
+    <div id="DocumentEditor"></div>
+</body>
+
+</html>
+
+{% endhighlight %}
+{% endtabs %}
 
 #### Run the Document Editor Container application
 
 The quickstart project is configured to compile and run the application in the browser. Use the following command to run the application.
 
-```
+{% tabs %}
+{% highlight bash tabtitle="NPM" %}
+
 npm start
-```
+
+{% endhighlight %}
+{% endtabs %}
 
 DocumentEditorContainer output will be displayed as follows.
 
