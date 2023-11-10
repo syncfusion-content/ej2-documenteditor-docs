@@ -83,3 +83,4 @@ documentEditor.editor.setFieldInfo(fieldInfo);
 
 * [Mail merge using DocIO](https://help.syncfusion.com/file-formats/docio/working-with-mail-merge)
 * [Mail merge demo](https://github.com/SyncfusionExamples/EJ2-Document-Editor-Web-Services/blob/master/ASP.NET%20Core/src/Controllers/DocumentEditorController.cs#L114)
+* You can refer to the [Microsoft support article to know more about the list of fields supported in Microsoft Word and its field codes](https://support.microsoft.com/en-us/office/list-of-field-codes-in-word-1ad6d91a-55a7-4a8d-b535-cf7888659a51)
