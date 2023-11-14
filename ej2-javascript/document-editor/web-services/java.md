@@ -203,7 +203,7 @@ import com.syncfusion.ej2.wordprocessor.*;
 		{
 			// TIFF image conversion
 			//You can write your own method definition for converting TIFF to raster image using any third-party image converter.
-            args.setImageStream(ConvertTiffToRasterImage(args.getMetafileStream())) ;
+			args.setImageStream(ConvertTiffToRasterImage(args.getMetafileStream())) ;
 		}
     }
 ```

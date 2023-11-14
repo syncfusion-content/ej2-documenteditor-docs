@@ -99,7 +99,7 @@ The following example code illustrates how to use `MetafileImageParsed` event fo
 		{
 			// TIFF image conversion
 			//You can write your own method definition for converting TIFF to raster image using any third-party image converter.
-            		args.ImageStream = ConvertTiffToRasterImage(args.MetafileStream);
+			args.ImageStream = ConvertTiffToRasterImage(args.MetafileStream);
 		}
     }
 ```
