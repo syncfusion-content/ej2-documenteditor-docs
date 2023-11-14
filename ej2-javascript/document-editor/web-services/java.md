@@ -131,7 +131,9 @@ The following example code illustrates how to write a Web API for importing Word
 
 ### Import document with EMF and WMF images
 
-The web browsers do not support to display metafile images like EMF and WMF. As a fallback approach, you can convert the metafile to raster image using any image converter in the `MetafileImageParsed` event and this fallback raster image will be displayed in the client-side Document editor component.
+The web browsers do not support to display metafile images like EMF and WMF and also TIFF format images. As a fallback approach, you can convert the metafile/TIFF format image to raster image using any image converter in the `MetafileImageParsed` event and this fallback raster image will be displayed in the client-side Document editor component.
+
+>Note: In `MetafileImageParsedEventArgs` event argument, you can get the metafile stream using `getMetafileStream()` property and you can get the `getIsMetafile()` boolean value to determine whether the image  is meta file images(WMF,EMF) or Tiff format images.
 
 The following example code illustrates how to use `MetafileImageParsed` event for creating fallback raster image for metafile present in a Word document.
 
@@ -191,6 +193,18 @@ import com.syncfusion.ej2.wordprocessor.*;
         // You can write your own method definition for converting metafile to raster
         // image using any third-party image converter.
         args.setImageStream(ConvertMetafileToRasterImage(args.getMetafileStream())) ;
+        if (args.getIsMetafile())
+		{
+			// MetaFile image conversion(EMF and WMF)
+			//You can write your own method definition for converting metafile to raster image using any third-party image converter.
+			args.setImageStream(ConvertMetafileToRasterImage(args.getMetafileStream())) ;
+		}
+		else
+		{
+			// TIFF image conversion
+			//You can write your own method definition for converting TIFF to raster image using any third-party image converter.
+            args.setImageStream(ConvertTiffToRasterImage(args.getMetafileStream())) ;
+		}
     }
 ```
 
