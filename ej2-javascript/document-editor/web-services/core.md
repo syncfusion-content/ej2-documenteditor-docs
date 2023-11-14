@@ -91,13 +91,13 @@ The following example code illustrates how to use `MetafileImageParsed` event fo
     {       
         if (args.IsMetafile)
 		{
-			// MetaFile image conversion(EMF and WMF)
+			//MetaFile image conversion(EMF and WMF)
 			//You can write your own method definition for converting metafile to raster image using any third-party image converter.
 			args.ImageStream = ConvertMetafileToRasterImage(args.MetafileStream);
 		}
 		else
 		{
-			// TIFF image conversion
+			//TIFF image conversion
 			//You can write your own method definition for converting TIFF to raster image using any third-party image converter.
 			args.ImageStream = ConvertTiffToRasterImage(args.MetafileStream);
 		}

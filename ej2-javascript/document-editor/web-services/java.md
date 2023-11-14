@@ -129,7 +129,7 @@ The following example code illustrates how to write a Web API for importing Word
     }
 ```
 
-### Import document with EMF and WMF images
+### Import document with TIFF, EMF and WMF images
 
 The web browsers do not support to display metafile images like EMF and WMF and also TIFF format images. As a fallback approach, you can convert the metafile/TIFF format image to raster image using any image converter in the `MetafileImageParsed` event and this fallback raster image will be displayed in the client-side Document editor component.
 
@@ -195,13 +195,13 @@ import com.syncfusion.ej2.wordprocessor.*;
         args.setImageStream(ConvertMetafileToRasterImage(args.getMetafileStream())) ;
         if (args.getIsMetafile())
 		{
-			// MetaFile image conversion(EMF and WMF)
+			//MetaFile image conversion(EMF and WMF)
 			//You can write your own method definition for converting metafile to raster image using any third-party image converter.
 			args.setImageStream(ConvertMetafileToRasterImage(args.getMetafileStream())) ;
 		}
 		else
 		{
-			// TIFF image conversion
+			//TIFF image conversion
 			//You can write your own method definition for converting TIFF to raster image using any third-party image converter.
 			args.setImageStream(ConvertTiffToRasterImage(args.getMetafileStream())) ;
 		}
