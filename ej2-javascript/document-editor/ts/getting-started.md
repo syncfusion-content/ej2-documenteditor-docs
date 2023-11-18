@@ -175,8 +175,6 @@ npm start
 {% endhighlight %}
 {% endtabs %}
 
-Documenteditor output will be displayed as follows.
-
 {% tabs %}
 {% highlight ts tabtitle="index.ts" %}
 {% include code-snippet/document-editor/getting-started-cs1/index.ts %}
@@ -251,8 +249,6 @@ npm start
 
 {% endhighlight %}
 {% endtabs %}
-
-DocumentEditorContainer output will be displayed as follows.
 
 {% tabs %}
 {% highlight ts tabtitle="index.ts" %}
