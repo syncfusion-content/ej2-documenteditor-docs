@@ -18,29 +18,32 @@ Using ruler we can refer to setting specific margins, tab stops, or indentations
 
 The following example illustrates how to enable ruler in Document Editor
 
-{% tab template="document-editor/ruler",es5Template="ruler", sourceFiles="index.ts,index.html" %}
+{% if page.publishingplatform == "typescript" %}
 
-```typescript
-import { DocumentEditor, Editor } from '@syncfusion/ej2-documenteditor';
+{% tabs %}
+{% highlight ts tabtitle="index.ts" %}
+{% include code-snippet/document-editor/ruler-cs1/index.ts %}
+{% endhighlight %}
+{% highlight html tabtitle="index.html" %}
+{% include code-snippet/document-editor/ruler-cs1/index.html %}
+{% endhighlight %}
+{% endtabs %}
+        
+{% previewsample "page.domainurl/code-snippet/document-editor/ruler-cs1" %}
 
-//Initialize Document Editor component.
-let documenteditor: DocumentEditor = new DocumentEditor({
-    isReadOnly: false, height: '370px', documentEditorSettings: {showRuler: true}
-});
+{% elsif page.publishingplatform == "javascript" %}
 
-//Enable all built in modules.
-documenteditor.enableAllModules();
+{% tabs %}
+{% highlight js tabtitle="index.js" %}
+{% include code-snippet/document-editor/ruler-cs1/index.js %}
+{% endhighlight %}
+{% highlight html tabtitle="index.html" %}
+{% include code-snippet/document-editor/ruler-cs1/index.html %}
+{% endhighlight %}
+{% endtabs %}
 
-document.getElementById('container_ruler_button').addEventListener('click', 
-function () {
-    documenteditor.documentEditorSettings.showRuler = !documenteditor.documentEditorSettings.showRuler;
-});
-
-//Render Document Editor component.
-documenteditor.appendTo('#DocumentEditor');
-```
-
-{% endtab %}
+{% previewsample "page.domainurl/code-snippet/document-editor/ruler-cs1" %}
+{% endif %}
 
 ## How to enable ruler in Document Editor Container component
 
@@ -48,26 +51,29 @@ Using ruler we can refer to setting specific margins, tab stops, or indentations
 
 The following example illustrates how to enable ruler in Document Editor Container.
 
-{% tab template="document-editor/ruler",es5Template="open-default-window", sourceFiles="index.ts,index.html" %}
+{% if page.publishingplatform == "typescript" %}
 
-```typescript
-import { DocumentEditorContainer, Toolbar } from '@syncfusion/ej2-documenteditor';
+{% tabs %}
+{% highlight ts tabtitle="index.ts" %}
+{% include code-snippet/document-editor/ruler-cs2/index.ts %}
+{% endhighlight %}
+{% highlight html tabtitle="index.html" %}
+{% include code-snippet/document-editor/ruler-cs2/index.html %}
+{% endhighlight %}
+{% endtabs %}
+        
+{% previewsample "page.domainurl/code-snippet/document-editor/ruler-cs2" %}
 
-//Inject require modules.
-DocumentEditorContainer.Inject(Toolbar);
+{% elsif page.publishingplatform == "javascript" %}
 
-//Initialize Document Editor Container component.
-let container: DocumentEditorContainer = new DocumentEditorContainer({
-    height: '590px', documentEditorSettings: {showRuler: true}
-});
+{% tabs %}
+{% highlight js tabtitle="index.js" %}
+{% include code-snippet/document-editor/ruler-cs2/index.js %}
+{% endhighlight %}
+{% highlight html tabtitle="index.html" %}
+{% include code-snippet/document-editor/ruler-cs2/index.html %}
+{% endhighlight %}
+{% endtabs %}
 
-document.getElementById('container_ruler_button').addEventListener('click', 
-function () {
-    container.documentEditorSettings.showRuler = !container.documentEditorSettings.showRuler;
-});
-
-//Render Document Editor Container component.
-container.appendTo('#DocumentEditor');
-```
-
-{% endtab %}
+{% previewsample "page.domainurl/code-snippet/document-editor/ruler-cs2" %}
+{% endif %}
