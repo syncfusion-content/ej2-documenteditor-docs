@@ -99,9 +99,70 @@ The following example code illustrates how to use `MetafileImageParsed` event fo
 		{
 			//TIFF image conversion
 			//You can write your own method definition for converting TIFF to raster image using any third-party image converter.
-			args.ImageStream = ConvertTiffToRasterImage(args.MetafileStream);
+			args.ImageStream = TiffToPNG(args.MetafileStream);
 		}
     }
+
+     // Converting Tiff to Png image using Bitmiracle https://www.nuget.org/packages/BitMiracle.LibTiff.NET
+    private static MemoryStream TiffToPNG(Stream tiffStream)
+     {
+         MemoryStream imageStream = new MemoryStream();
+         using (Tiff tif = Tiff.ClientOpen("in-memory", "r", tiffStream, new TiffStream()))
+         {
+         // Find the width and height of the image
+         FieldValue[] value = tif.GetField(BitMiracle.LibTiff.Classic.TiffTag.IMAGEWIDTH);
+         int width = value[0].ToInt();
+
+         value = tif.GetField(BitMiracle.LibTiff.Classic.TiffTag.IMAGELENGTH);
+         int height = value[0].ToInt();
+
+         // Read the image into the memory buffer
+         int[] raster = new int[height * width];
+         if (!tif.ReadRGBAImage(width, height, raster))
+         {
+             throw new Exception("Could not read image");
+         }
+
+         // Create a bitmap image using SkiaSharp.
+         using (SKBitmap sKBitmap = new SKBitmap(width, height, SKImageInfo.PlatformColorType, SKAlphaType.Premul))
+         {
+             // Convert a RGBA value to byte array.
+             byte[] bitmapData = new byte[sKBitmap.RowBytes * sKBitmap.Height];
+             for (int y = 0; y < sKBitmap.Height; y++)
+             {
+              int rasterOffset = y * sKBitmap.Width;
+              int bitsOffset = (sKBitmap.Height - y - 1) * sKBitmap.RowBytes;
+
+              for (int x = 0; x < sKBitmap.Width; x++)
+              {
+                  int rgba = raster[rasterOffset++];
+                  bitmapData[bitsOffset++] = (byte)((rgba >> 16) & 0xff);
+                  bitmapData[bitsOffset++] = (byte)((rgba >> 8) & 0xff);
+                  bitmapData[bitsOffset++] = (byte)(rgba & 0xff);
+                  bitmapData[bitsOffset++] = (byte)((rgba >> 24) & 0xff);
+              }
+             }
+
+             // Convert a byte array to SKColor array.
+             SKColor[] sKColor = new SKColor[bitmapData.Length / 4];
+             int index = 0;
+             for (int i = 0; i < bitmapData.Length; i++)
+             {
+              sKColor[index] = new SKColor(bitmapData[i + 2], bitmapData[i + 1], bitmapData[i], bitmapData[i + 3]);
+              i += 3;
+              index += 1;
+             }
+
+             // Set the SKColor array to SKBitmap.
+             sKBitmap.Pixels = sKColor;
+
+             // Save the SKBitmap to PNG image stream.
+             sKBitmap.Encode(SKEncodedImageFormat.Png, 100).SaveTo(imageStream);
+             imageStream.Flush();
+         }
+         }
+         return imageStream;
+     }
 ```
 
 ## Paste with formatting
