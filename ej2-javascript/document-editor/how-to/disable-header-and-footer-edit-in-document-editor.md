@@ -76,7 +76,7 @@ The following example code illustrates how to header and footer edit in `Documen
 ```ts
 import { DocumentEditor } from '@syncfusion/ej2-documenteditor';
 
-let hostUrl: string = 'https://ej2services.syncfusion.com/production/web-services/';
+let hostUrl: string = 'https://services.syncfusion.com/js/production/';
 
 let documentEditor: DocumentEditor = new DocumentEditor({ isReadOnly: false, height: '590px' });
 documentEditor.enableAllModules();

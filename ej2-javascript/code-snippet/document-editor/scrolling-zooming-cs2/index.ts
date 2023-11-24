@@ -3,7 +3,7 @@
 import { DocumentEditor } from '@syncfusion/ej2-documenteditor';
 //Initialize the Document Editor component.
 let documenteditor: DocumentEditor = new DocumentEditor({
-    isReadOnly: false, height: '370px'
+    isReadOnly: false, height: '370px', serviceUrl: 'https://services.syncfusion.com/js/production/api/documenteditor/'
 });
 documenteditor.enableAllModules();
 documenteditor.appendTo('#DocumentEditor');

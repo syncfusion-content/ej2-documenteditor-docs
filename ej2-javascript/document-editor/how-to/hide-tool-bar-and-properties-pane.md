@@ -28,7 +28,7 @@ DocumentEditorContainer.Inject(Toolbar);
 
 let container: DocumentEditorContainer = new DocumentEditorContainer({ enableToolbar: true, height: '590px', showPropertiesPane:false });
 
-container.serviceUrl = 'https://ej2services.syncfusion.com/production/web-services/api/documenteditor/';
+container.serviceUrl = 'https://services.syncfusion.com/js/production/api/documenteditor/';
 
 container.appendTo('#container');
 ```
@@ -46,7 +46,7 @@ import { DocumentEditorContainer, Toolbar } from '@syncfusion/ej2-documenteditor
 
 let container: DocumentEditorContainer = new DocumentEditorContainer({ enableToolbar: false, height: '590px' });
 
-container.serviceUrl = 'https://ej2services.syncfusion.com/production/web-services/api/documenteditor/';
+container.serviceUrl = 'https://services.syncfusion.com/js/production/api/documenteditor/';
 
 container.appendTo('#container');
 ```

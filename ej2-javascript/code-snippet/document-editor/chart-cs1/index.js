@@ -1,4 +1,4 @@
-var documenteditor = new ej.documenteditor.DocumentEditor({ isReadOnly: false });
+var documenteditor = new ej.documenteditor.DocumentEditor({ isReadOnly: false, serviceUrl: 'https://services.syncfusion.com/js/production/api/documenteditor/' });
     documenteditor.acceptTab = true;
     documenteditor.enableAllModules();
     documenteditor.pageOutline = '#E0E0E0';
