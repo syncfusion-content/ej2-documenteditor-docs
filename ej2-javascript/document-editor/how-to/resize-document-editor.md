@@ -58,7 +58,7 @@ import {
 let container: DocumentEditorContainer = new DocumentEditorContainer({ enableToolbar: true, height: '590px' });
 DocumentEditorContainer.Inject(Toolbar);
 container.serviceUrl =
-    'https://ej2services.syncfusion.com/production/web-services/api/documenteditor/';
+    'https://services.syncfusion.com/js/production/api/documenteditor/';
 
 container.created = (): void => {
     setInterval(() => {

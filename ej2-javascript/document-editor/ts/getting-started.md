@@ -124,7 +124,7 @@ Place the following code in the `app.ts`.
 import { DocumentEditor } from '@syncfusion/ej2-documenteditor';
 
 // Initialize Document Editor component.
-let documenteditor: DocumentEditor = new DocumentEditor({ isReadOnly: false, height: '370px', serviceUrl: 'https://ej2services.syncfusion.com/production/web-services/api/documenteditor/' });
+let documenteditor: DocumentEditor = new DocumentEditor({ isReadOnly: false, height: '370px', serviceUrl: 'https://services.syncfusion.com/js/production/api/documenteditor/' });
 
 // Enable all built in modules.
 documenteditor.enableAllModules();
@@ -205,7 +205,7 @@ import { DocumentEditorContainer, Toolbar } from '@syncfusion/ej2-documenteditor
 
 DocumentEditorContainer.Inject(Toolbar);
 
-let documenteditor: DocumentEditorContainer = new DocumentEditorContainer({ enableToolbar: true, height: '390px', serviceUrl: 'https://ej2services.syncfusion.com/production/web-services/api/documenteditor/' });
+let documenteditor: DocumentEditorContainer = new DocumentEditorContainer({ enableToolbar: true, height: '390px', serviceUrl: 'https://services.syncfusion.com/js/production/api/documenteditor/' });
 
 documenteditor.appendTo('#DocumentEditor');
 

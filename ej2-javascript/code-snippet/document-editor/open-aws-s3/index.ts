@@ -5,7 +5,7 @@ import { DocumentEditorContainer, Toolbar } from '@syncfusion/ej2-documenteditor
 DocumentEditorContainer.Inject(Toolbar);
 
 //Initialize Document Editor component
-let documentEditorContainer: DocumentEditorContainer = new DocumentEditorContainer({ enableToolbar: true, height: '590px', serviceUrl: 'https://ej2services.syncfusion.com/production/web-services/api/documenteditor/' });
+let documentEditorContainer: DocumentEditorContainer = new DocumentEditorContainer({ enableToolbar: true, height: '590px', serviceUrl: 'https://services.syncfusion.com/js/production/api/documenteditor/' });
 
 // Render Document Editor component.
 documentEditorContainer.appendTo('#DocumentEditor');

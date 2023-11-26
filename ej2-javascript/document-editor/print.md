@@ -84,7 +84,7 @@ let container: DocumentEditorContainer = new DocumentEditorContainer({ enableToo
    }
  });
  DocumentEditorContainer.Inject(Toolbar);
- container.serviceUrl = 'https://ej2services.syncfusion.com/production/web-services/api/documenteditor/';
+ container.serviceUrl = 'https://services.syncfusion.com/js/production/api/documenteditor/';
  container.appendTo('#container');
 ```
 
