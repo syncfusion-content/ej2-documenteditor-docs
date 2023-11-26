@@ -80,7 +80,7 @@ import { DocumentEditor } from '@syncfusion/ej2-documenteditor';
 
 //Initialize the Document Editor module.
 let documenteditor: DocumentEditor = new DocumentEditor({
-    isReadOnly: false
+    isReadOnly: false, serviceUrl: 'https://services.syncfusion.com/js/production/api/documenteditor/'
 });
 
 // Enable all the built in modules.
@@ -99,7 +99,7 @@ Apart from specifying the zoom factor as value, the Document Editor provides opt
 import { DocumentEditor } from '@syncfusion/ej2-documenteditor';
 //Initialize the Document Editor module.
 let documenteditor: DocumentEditor = new DocumentEditor({
-    isReadOnly: false
+    isReadOnly: false, serviceUrl: 'https://services.syncfusion.com/js/production/api/documenteditor/'
 });
 
 // Enable all the built in modules.

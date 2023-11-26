@@ -1,6 +1,6 @@
 var documenteditorContainer = new ej.documenteditor.DocumentEditorContainer({ enableToolbar: true });
     ej.documenteditor.DocumentEditorContainer.Inject(ej.documenteditor.Toolbar);
-    documenteditorContainer.serviceUrl = 'https://ej2services.syncfusion.com/production/web-services/api/documenteditor/';
+    documenteditorContainer.serviceUrl = 'https://services.syncfusion.com/js/production/api/documenteditor/';
     //DocumentEditorContainer control rendering starts
     documenteditorContainer.documentChange = () => {
     documenteditorContainer.restrictEditing=true;

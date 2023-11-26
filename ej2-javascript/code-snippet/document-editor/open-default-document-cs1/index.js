@@ -1,5 +1,5 @@
 var documenteditor = new ej.documenteditor.DocumentEditor({
-    isReadOnly: false
+    isReadOnly: false, serviceUrl: 'https://services.syncfusion.com/js/production/api/documenteditor/'
 });
 documenteditor.enableAllModules();
 onCreated = function (){

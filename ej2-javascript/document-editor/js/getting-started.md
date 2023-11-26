@@ -127,7 +127,7 @@ The Essential JS 2 JavaScript components can be initialized by using either of t
         <div id='DocumentEditor'></div>
     <script>
         // Initialize DocumentEditor component.
-        var documenteditor = new ej.documenteditor.DocumentEditor({ isReadOnly: false });
+        var documenteditor = new ej.documenteditor.DocumentEditor({ isReadOnly: false, serviceUrl: 'https://services.syncfusion.com/js/production/api/documenteditor/' });
 
         documenteditor.acceptTab = true;
 
@@ -194,7 +194,7 @@ The Essential JS 2 JavaScript components can be initialized by using either of t
 
           //Inject require modules.
           ej.documenteditor.DocumentEditorContainer.Inject(ej.documenteditor.Toolbar);
-          documenteditorContainer.serviceUrl = 'https://ej2services.syncfusion.com/production/web-services/api/documenteditor/import';
+          documenteditorContainer.serviceUrl = 'https://services.syncfusion.com/js/production/api/documenteditor/import';
           //DocumentEditorContainer control rendering starts
           documenteditorContainer.appendTo('#DocumentEditor');
       </script>
@@ -265,7 +265,7 @@ Now, run the `index.html` in web browser, it will render the **Essential JS 2 Do
       <div id='DocumentEditor' style='height:350px'></div>
   <script>
       // Initialize DocumentEditor component.
-      var documenteditor = new ej.documenteditor.DocumentEditor({ height: '370px', isReadOnly: false });
+      var documenteditor = new ej.documenteditor.DocumentEditor({ height: '370px', isReadOnly: false, serviceUrl: 'https://services.syncfusion.com/js/production/api/documenteditor/' });
 
       documenteditor.acceptTab = true;
       //Enable all the build in modules.
@@ -335,7 +335,7 @@ Now, run the `index.html` in web browser, it will render the **Essential JS 2 Do
     // Initialize DocumentEditorContainer component.
     var documenteditorContainer = new ej.documenteditor.DocumentEditorContainer({ enableToolbar: true, height: '590px' });
     ej.documenteditor.DocumentEditorContainer.Inject(ej.documenteditor.Toolbar);
-    documenteditorContainer.serviceUrl = 'https://ej2services.syncfusion.com/production/web-services/api/documenteditor/';
+    documenteditorContainer.serviceUrl = 'https://services.syncfusion.com/js/production/api/documenteditor/';
     //DocumentEditorContainer control rendering starts
     documenteditorContainer.appendTo('#DocumentEditor');
   </script>

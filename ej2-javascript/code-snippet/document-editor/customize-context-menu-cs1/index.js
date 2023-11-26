@@ -6,7 +6,8 @@ var positionCheckBoxObj = new  ej.buttons.CheckBox({ label: 'Add Custom option a
 positionCheckBoxObj.appendTo('#position-context-menu');
 
 var editor = new ej.documenteditor.DocumentEditor({
-    isReadOnly: false
+    isReadOnly: false,
+    serviceUrl: 'https://services.syncfusion.com/js/production/api/documenteditor/'
 });
 editor.enableAllModules();
 editor.appendTo('#DocumentEditor');

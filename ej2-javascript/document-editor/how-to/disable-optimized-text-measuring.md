@@ -29,7 +29,7 @@ let container: DocumentEditorContainer = new DocumentEditorContainer({ enableToo
 // Disable optimized text measuring improvement
 container.documentEditorSettings = { enableOptimizedTextMeasuring: false };
 
-container.serviceUrl = 'https://ej2services.syncfusion.com/production/web-services/api/documenteditor/';
+container.serviceUrl = 'https://services.syncfusion.com/js/production/api/documenteditor/';
 
 container.appendTo('#container');
 ```
@@ -41,7 +41,7 @@ The following example code illustrates how to disable optimized text measuring i
 ```ts
 import { DocumentEditor } from '@syncfusion/ej2-documenteditor';
 
-let documenteditor: DocumentEditor = new DocumentEditor({ isReadOnly: false, height: '370px', serviceUrl: 'https://ej2services.syncfusion.com/production/web-services/api/documenteditor/' });
+let documenteditor: DocumentEditor = new DocumentEditor({ isReadOnly: false, height: '370px', serviceUrl: 'https://services.syncfusion.com/js/production/api/documenteditor/' });
 
 documenteditor.enableAllModules();
 

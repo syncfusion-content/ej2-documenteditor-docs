@@ -23,7 +23,7 @@ The following example code illustrates how to change the default font size in Do
 import { DocumentEditorContainer, Toolbar } from '@syncfusion/ej2-documenteditor';
 
 let container: DocumentEditorContainer = new DocumentEditorContainer({ height: "590px" });
-container.serviceUrl = 'https://ej2services.syncfusion.com/production/web-services/api/documenteditor/';
+container.serviceUrl = 'https://services.syncfusion.com/js/production/api/documenteditor/';
 DocumentEditorContainer.Inject(Toolbar);
 // Default font size set as 20
 container.setDefaultCharacterFormat({ fontSize: 20 });
@@ -38,7 +38,7 @@ The following example code illustrates how to change other character format defa
 import { CharacterFormatProperties, DocumentEditorContainer, Toolbar } from '@syncfusion/ej2-documenteditor';
 
 let container: DocumentEditorContainer = new DocumentEditorContainer({ height: "590px" });
-container.serviceUrl = 'https://ej2services.syncfusion.com/production/web-services/api/documenteditor/';
+container.serviceUrl = 'https://services.syncfusion.com/js/production/api/documenteditor/';
 DocumentEditorContainer.Inject(Toolbar);
 // Set default value
 let defaultCharacterFormat: CharacterFormatProperties = {
@@ -64,7 +64,7 @@ The following example code illustrates how to change the paragraph format(before
 import { ParagraphFormatProperties, DocumentEditorContainer, Toolbar } from '@syncfusion/ej2-documenteditor';
 
 let container: DocumentEditorContainer = new DocumentEditorContainer({ height: "590px" });
-container.serviceUrl = 'https://ej2services.syncfusion.com/production/web-services/api/documenteditor/';
+container.serviceUrl = 'https://services.syncfusion.com/js/production/api/documenteditor/';
 DocumentEditorContainer.Inject(Toolbar);
 
 let defaultParagraphFormat: ParagraphFormatProperties = {
@@ -87,7 +87,7 @@ The following example code illustrates how to change the section format(header a
 import { SectionFormatProperties, DocumentEditorContainer, Toolbar } from '@syncfusion/ej2-documenteditor';
 
 let container: DocumentEditorContainer = new DocumentEditorContainer({ height: "590px" });
-container.serviceUrl = 'https://ej2services.syncfusion.com/production/web-services/api/documenteditor/';
+container.serviceUrl = 'https://services.syncfusion.com/js/production/api/documenteditor/';
 DocumentEditorContainer.Inject(Toolbar);
 
 let defaultSectionFormat: SectionFormatProperties = {
