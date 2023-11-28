@@ -21,7 +21,7 @@ Start by following the steps provided in this [link](https://ej2.syncfusion.com/
 
 {% elsif page.publishingplatform == "javascript" %}
 
-## Step 1: Create a Simple Document Editor Sample in Javascript
+**Step 1:** Create a Simple Document Editor Sample in Javascript
 
 Start by following the steps provided in this [link](https://ej2.syncfusion.com/javascript/documentation/document-editor/getting-started) to create a simple Document Editor sample in JavaScript. This will give you a basic setup of the Document Editor component. 
 
