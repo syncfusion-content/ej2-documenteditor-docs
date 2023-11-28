@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Open document from from AWS S3 in ##Platform_Name## Document editor control | Syncfusion
+title: Open document from AWS S3 in ##Platform_Name## Document editor control | Syncfusion
 description:  Learn about how to Open document from AWS S3 in ##Platform_Name## Document editor control of Syncfusion Essential JS 2 and more details.
 platform: ej2-javascript
 control: Open document from AWS S3
@@ -17,17 +17,23 @@ To load a document from AWS S3 in a Document Editor, you can follow the steps be
 
 **Step 1:** Create a Simple Document Editor Sample in TypeScript
 
-Start by following the steps provided in this [link](https://ej2.syncfusion.com/documentation/document-editor/getting-started) to create a simple Document Editor sample in TypeScript. This will give you a basic setup of the Document Editor component. 
+Start by following the steps provided in this [link](../ts/getting-started.md) to create a simple Document Editor sample in Typescript. This will give you a basic setup of the Document Editor component. 
 
 {% elsif page.publishingplatform == "javascript" %}
 
 **Step 1:** Create a Simple Document Editor Sample in Javascript
 
-Start by following the steps provided in this [link](https://ej2.syncfusion.com/javascript/documentation/document-editor/getting-started) to create a simple Document Editor sample in JavaScript. This will give you a basic setup of the Document Editor component. 
+Start by following the steps provided in this [link](../js/getting-started.md) to create a simple Document Editor sample in Javascript. This will give you a basic setup of the Document Editor component. 
 
 **Step 2:** Modify the `DocumentEditorController.cs` File in the Web Service Project
 
-1. Create a web service project in .NET Core 3.0 or above. You can refer to this [link](https://ej2.syncfusion.com/javascript/documentation/document-editor/web-services/core) for instructions on how to create a web service project.
+{% if page.publishingplatform == "typescript" %}
+
+1. Create a web service project in .NET Core 3.0 or above. You can refer to this [link](../ts/web-services-overview.md) for instructions on how to create a web service project.
+
+{% elsif page.publishingplatform == "javascript" %}
+
+1. Create a web service project in .NET Core 3.0 or above. You can refer to this [link](../js/web-services-overview.md) for instructions on how to create a web service project.
 
 2. Open the `DocumentEditorController.cs` file in your web service project.
 
@@ -119,7 +125,7 @@ N> Replace **Your Access Key from AWS S3**, **Your Secret Key from AWS S3**, and
 
 **Step 3:**  Modify the index File in the Document Editor sample
 
-In the client-side, the document is returned from the web service is opening using [`open`](https://ej2.syncfusion.com/documentation/api/document-editor/#open) method.
+In the client-side, the document is returned from the web service is opening using [`open`](../../api/document-editor/#open) method.
 
 {% if page.publishingplatform == "typescript" %}
 
