@@ -19,7 +19,7 @@ async function save(): Promise<void> {
         let exportedDocument = blob;
         //Now, save the document where ever you want.
         let formData: FormData = new FormData();
-        formData.append('fileName', 'sample.docx');
+        formData.append('documentName', documentEditorContainer.documentEditor.documentName);
         formData.append('data', exportedDocument);
         /* tslint:disable */
         let req = new XMLHttpRequest();
