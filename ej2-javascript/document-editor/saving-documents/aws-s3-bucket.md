@@ -1,35 +1,139 @@
 ---
 layout: post
-title: Save the document the AWS S3 Bucket in Syncfusion ##Platform_Name## Document editor control | Syncfusion
-description: Learn here to save document in the AWS S3 Bucket in Syncfusion ##Platform_Name## Document editor control of Syncfusion Essential JS 2 and more.
+title: Save document to AWS S3 in ##Platform_Name## Document editor control | Syncfusion
+description:  Learn about how to Save document to AWS S3 in ##Platform_Name## Document editor of Syncfusion Essential JS 2 and more details.
 platform: ej2-javascript
-control: Save to AWS S3 Bucket
+control: Save document to AWS S3
 publishingplatform: ##Platform_Name##
 documentation: ug
 domainurl: ##DomainURL##
---- 
+---
 
-# Saving the document to AWS S3 Bucket in ##Platform_Name## Document editor control
+# Save PDF file to AWS S3
 
-Document Editor exports the document into various known file formats in client-side such as Microsoft Word document (.docx), text document (.txt), and its own format called **Syncfusion Document Text (.sfdt)**. We will guide you through the steps to save your documents in cloud storage.
+To save a document to AWS S3, you can follow the steps below
 
 {% if page.publishingplatform == "typescript" %}
 
-## Step 1: Create a Simple Document Editor Sample in Typescript
+**Step 1:** Create a Simple Document Editor sample in TypeScript
 
-* Start by following the steps provided in this [`link`](../ts/getting-started.md) to create a simple Document Editor sample in Typescript. This will give you a basic setup of the Document Editor component. 
+Follow the instructions provided in this [link](../ts/getting-started.md) to create a simple Document Editor sample in Typescript. This will give you a basic setup of the Document Editor component.
 
 {% elsif page.publishingplatform == "javascript" %}
 
-## Step 1: Create a Simple Document Editor Sample in Javascript
+**Step 1:** Create a Simple Document Editor sample in JavaScript
 
-* Start by following the steps provided in this [`link`](../js/getting-started.md) to create a simple Document Editor sample in Javascript. This will give you a basic setup of the Document Editor component.
+Follow the instructions provided in this [link](../ts/getting-started.md) to create a simple Document Editor sample in Javascript. This will give you a basic setup of the Document Editor component.
 
-{% endif %}
+**Step 2:** Modify the `DocumentEditorController.cs` File in the Web Service Project
 
-## Step 2: Modify the index File in the Document Editor sample
+{% if page.publishingplatform == "typescript" %}
 
-* In the client-side, the document is saved as sfdt using using [`serialize`](../../api/document-editor/#serialize) method which save's the document as **Syncfusion Document Text (.sfdt)** and sent to server-side for saving in AWS S3 Bucket.
+1. Create a web service project in .NET Core 3.0 or above. You can refer to this [link](../ts/web-services-overview.md) for instructions on how to create a web service project.
+
+{% elsif page.publishingplatform == "javascript" %}
+
+1. Create a web service project in .NET Core 3.0 or above. You can refer to this [link](../js/web-services-overview.md) for instructions on how to create a web service project.
+
+2. Open the `DocumentEditorController.cs` file in your web service project.
+
+3. Import the required namespaces at the top of the file:
+
+```csharp
+using System.IO;
+using Amazon;
+using Amazon.S3;
+using Amazon.S3.Model;
+```
+
+4. Add the following private fields and constructor parameters to the `DocumentEditorController` class, In the constructor, assign the values from the configuration to the corresponding fields
+
+```csharp
+private IConfiguration _configuration;
+public readonly string _accessKey;
+public readonly string _secretKey;
+public readonly string _bucketName;
+
+public DocumentEditorController(IWebHostEnvironment hostingEnvironment, IMemoryCache cache, IConfiguration configuration)
+{
+  _hostingEnvironment = hostingEnvironment;
+  _cache = cache;
+  _configuration = configuration;
+  _accessKey = _configuration.GetValue<string>("AccessKey");
+  _secretKey = _configuration.GetValue<string>("SecretKey");
+  _bucketName = _configuration.GetValue<string>("BucketName");
+}
+```
+
+5. Create the `SaveToS3()` method to save the document to AWS S3 bucket
+
+```csharp
+
+[AcceptVerbs("Post")]
+[HttpPost]
+[EnableCors("AllowAllOrigins")]
+[Route("SaveToS3")]
+//Post action for save the document to AWS S3
+
+public void SaveToS3(IFormCollection data)
+{
+  if (data.Files.Count == 0)
+    return;
+  RegionEndpoint bucketRegion = RegionEndpoint.USEast1;
+  // Configure the AWS SDK with your access credentials and other settings
+  var s3Client = new AmazonS3Client(_accessKey, _secretKey, bucketRegion);
+  string bucketName = _bucketName;
+  IFormFile file = HttpContext.Request.Form.Files[0];
+  string documentName = this.GetValue(data, "documentName");
+  string result = Path.GetFileNameWithoutExtension(documentName);
+  Stream stream = new MemoryStream();
+  file.CopyTo(stream);
+  var request = new PutObjectRequest
+  {
+    BucketName = bucketName,
+    Key = result + "_downloaded.docx",
+    InputStream = stream,
+  };
+  // Upload the document to AWS S3
+  var response = s3Client.PutObjectAsync(request).Result;
+}
+
+private string GetValue(IFormCollection data, string key)
+{
+    if (data.ContainsKey(key))
+    {
+        string[] values = data[key];
+        if (values.Length > 0)
+        {
+            return values[0];
+        }
+    }
+    return "";
+}
+```
+
+6. Open the `appsettings.json` file in your web service project, Add the following lines below the existing `"AllowedHosts"` configuration
+
+```json
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  },
+  "AllowedHosts": "*",
+  "AccessKey": "Your Access Key from AWS S3",
+  "SecretKey": "Your Secret Key from AWS S3",
+  "BucketName": "Your Bucket name from AWS S3"
+}
+```
+
+N> Replace **Your Access Key from AWS S3**, **Your Secret Key from AWS S3**, and **Your Bucket name from AWS S3** with your actual AWS access key, secret key and bucket name
+
+**Step 3:**  Modify the index File in the Document Editor sample
+
+In the client-side, to export the document into blob the document using [`saveAsBlob`](../../api/document-editor/#saveAsBlob) and sent to server-side for saving in AWS S3 Bucket.
 
 {% if page.publishingplatform == "typescript" %}
 
@@ -52,75 +156,4 @@ Document Editor exports the document into various known file formats in client-s
 
 {% endif %}
 
-## Step 3: To use web service projects in.NET Core, refer to this [`link`](../web-services/core.md).
-
-* Import the required namespaces at the top of the DocumentEditorController.cs file:
-
-```c#
-
-using System.IO;
-using Amazon;
-using Amazon.S3;
-using Amazon.S3.Model;
-
-```
-
-* In server-side, configure the access key and secret key in `web.config` file and register profile in `startup.cs`.
-
-In `web.config`, add key like below format:
-
-```c#
- <appSettings>
-    <add key="AWSProfileName" value="sync_development" />
-    <add key="AWSAccessKey" value="" />
-    <add key="AWSSecretKey" value="" />
-  </appSettings>
-```
-
-In `startup.cs`, register profile in below format:
-
-```c#
-Amazon.Util.ProfileManager.RegisterProfile("sync_development","", "");
-```
-
->Note: Replace Your Access Key from AWS S3, Your Secret Key from AWS S3, and Your Bucket name from AWS S3 with your actual AWS access key, secret key and bucket name
-
-* In the server-side, Export the **Syncfusion Document Text (.sfdt)** to Word document and upload to the blob storage.
-
-```c#
-[AcceptVerbs("Post")]
-[HttpPost]
-[EnableCors("AllowAllOrigins")]
-[Route("SaveToS3")]
-public string SaveToS3()
-    {
-        IFormFile file = HttpContext.Request.Form.Files[0];
-        Stream stream = new MemoryStream();
-        file.CopyTo(stream);
-        UploadFileStreamToS3(stream, "bucketName", "", "sample.docx");
-        stream.Close();
-        return "Sucess";
-    }
-
-public bool UploadFileStreamToS3(System.IO.Stream localFilePath, string bucketName, string subDirectoryInBucket, string fileNameInS3)
-    {
-        AWSCredentials credentials = new StoredProfileAWSCredentials("sync_development");
-        IAmazonS3 client = new AmazonS3Client(credentials, Amazon.RegionEndpoint.USEast1);
-        TransferUtility utility = new TransferUtility(client);
-        TransferUtilityUploadRequest request = new TransferUtilityUploadRequest();
-
-        if (subDirectoryInBucket == "" || subDirectoryInBucket == null)
-        {
-            request.BucketName = bucketName; //no subdirectory just bucket name  
-        }
-        else
-        {   // subdirectory and bucket name  
-            request.BucketName = bucketName + @"/" + subDirectoryInBucket;
-        }
-        request.Key = fileNameInS3; //file name up in S3  
-        request.InputStream = localFilePath;
-        utility.Upload(request); //commensing the transfer  
-
-        return true; //indicate that the file was sent  
-    }
-```
+N> The **AWSSDK.S3** NuGet package must be installed in your application to use the previous code example.

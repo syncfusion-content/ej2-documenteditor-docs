@@ -85,10 +85,10 @@
 
         async function save() {
             container.documentEditor.saveAsBlob('Docx').then((blob) => {
-                let exportedDocument = blob;
+                var exportedDocument = blob;
                 //Now, save the document where ever you want.
-                let formData = new FormData();
-                formData.append('fileName', 'sample.docx');
+                var formData = new FormData();
+                formData.append('documentName', container.documentEditor.documentName);
                 formData.append('data', exportedDocument);
                 /* tslint:disable */
                 var req = new XMLHttpRequest();
