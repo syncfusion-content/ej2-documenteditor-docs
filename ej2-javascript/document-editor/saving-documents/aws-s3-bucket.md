@@ -25,6 +25,8 @@ Follow the instructions provided in this [link](../ts/getting-started.md) to cre
 
 Follow the instructions provided in this [link](../ts/getting-started.md) to create a simple Document Editor sample in Javascript. This will give you a basic setup of the Document Editor component.
 
+{% endif %}
+
 **Step 2:** Modify the `DocumentEditorController.cs` File in the Web Service Project
 
 {% if page.publishingplatform == "typescript" %}
@@ -34,6 +36,8 @@ Follow the instructions provided in this [link](../ts/getting-started.md) to cre
 {% elsif page.publishingplatform == "javascript" %}
 
 1. Create a web service project in .NET Core 3.0 or above. You can refer to this [link](../js/web-services-overview.md) for instructions on how to create a web service project.
+
+{% endif %}
 
 2. Open the `DocumentEditorController.cs` file in your web service project.
 
