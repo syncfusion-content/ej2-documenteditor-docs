@@ -1,14 +1,12 @@
-import {HubConnectionBuilder, HttpTransportType, HubConnectionState } from '@microsoft/signalr';
-
 let connectionId = "";
 
-var connection = new HubConnectionBuilder().withUrl(serviceUrl + '/documenteditorhub', {
+var connection = new signalR.HubConnectionBuilder().withUrl(serviceUrl + '/documenteditorhub', {
     skipNegotiation: true,
-    transport: HttpTransportType.WebSockets
+    transport: signalR.HttpTransportType.WebSockets
 }).withAutomaticReconnect().build();
 
 connection.onclose(async () => {
-    if (connection.state === HubConnectionState.Disconnected) {
+    if (connection.state === signalR.HubConnectionState.Disconnected) {
         alert('Connection lost. Please relod the browser to continue.');
     }
 });
