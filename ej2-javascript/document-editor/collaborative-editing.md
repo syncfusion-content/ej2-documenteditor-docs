@@ -2,6 +2,7 @@
 title: "Collaborative Editing (preview)"
 component: "DocumentEditor"
 description: "Learn how to enable collaborative editing"
+publishingplatform: ##Platform_Name##
 ---
 
 # Collaborative Editing (preview)
@@ -22,108 +23,85 @@ Following things are needed to enable collaborative editing in Document Editor
 
 To enable collaborative editing, inject `CollaborativeEditingHandler` and set the property `enableCollaborativeEditing` to true in the Document Editor, like in the code snippet below.
 
-```typescript
-import { DocumentEditorContainer, DocumentEditor, CollaborativeEditingHandler} from '@syncfusion/ej2-documenteditor';
+{% if page.publishingplatform == "typescript" %}
+{% tabs %}
+{% highlight ts tabtitle="index.ts" %}
+{% include code-snippet/document-editor/collaborative-editing-cs1/index.ts %}
+{% endhighlight %}
+{% endtabs %}
 
-//Inject collaborative editing module.
-DocumentEditor.Inject(CollaborativeEditingHandler);
-DocumentEditorContainer.Inject(Toolbar);
-let container: DocumentEditorContainer = new DocumentEditorContainer({ enableToolbar: true,  height: '590px',});
+{% elsif page.publishingplatform == "javascript" %}
 
-container.serviceUrl = 'http://localhost:5000/api/documenteditor/';
-container.appendTo('#container');
+{% tabs %}
+{% highlight js tabtitle="index.js" %}
+{% include code-snippet/document-editor/collaborative-editing-cs1/index.js %}
+{% endhighlight %}
+{% endtabs %}
 
-//Enable collaborative editing in Document Editor.
-container.documentEditor.enableCollaborativeEditing = true;
-
-```
+{% endif %}
 
 ## Step 2: Configure SignalR to send and receive changes
 
 To broadcast the changes made and receive changes from remote users, configure SignalR like below.
 
-```typescript
-import {HubConnectionBuilder, HttpTransportType, HubConnectionState } from '@microsoft/signalr';
+{% if page.publishingplatform == "typescript" %}
+{% tabs %}
+{% highlight ts tabtitle="index.ts" %}
+{% include code-snippet/document-editor/collaborative-editing-cs1/script-1.ts %}
+{% endhighlight %}
+{% endtabs %}
 
-   let connectionId: string= "";
+{% elsif page.publishingplatform == "javascript" %}
 
-var connection = new HubConnectionBuilder().withUrl(serviceUrl + '/documenteditorhub', {
-    skipNegotiation: true,
-    transport: HttpTransportType.WebSockets
-}).withAutomaticReconnect().build();
+{% tabs %}
+{% highlight js tabtitle="index.js" %}
+{% include code-snippet/document-editor/collaborative-editing-cs1/script-1.js %}
+{% endhighlight %}
+{% endtabs %}
 
-connection.onclose(async () => {
-    if (connection.state === HubConnectionState.Disconnected) {
-        alert('Connection lost. Please relod the browser to continue.');
-    }
-});
-
-async function start(data: any) {
-    try {
-        connection.start().then(function () {
-            //Join the collaborative editing session with the specified room name.
-            connection.send('JoinGroup', { roomName: data.roomName, currentUser: data.currentUser });
-            console.log('server connected!!!');
-        });
-    } catch (err) {
-        console.log(err);
-        setTimeout(start, 5000);
-    }
-};
-//Event handler to handle data received
-connection.on('dataReceived', onDataRecived.bind(this));
-
-function onDataRecived(action: string, data: any) {
-    if (connections) {
-        if (action == 'connectionId') {
-            connectionId = data;
-        } else if (connectionId != data.connectionId) {
-            if (action == 'action' || action == 'addUser') {
-                //Add user info when new user join the collaborative editing session.
-                titleBar.addUser(data);
-            } else if (action == 'removeUser') {
-                //Remove user info from title bar once user is disconnected.
-                titleBar.removeUser(data);
-            }
-        }
-        //Apply remote changes to current document.
-        connections.applyRemoteAction(action, data);
-    }
-}
-```
+{% endif %}
 
 ### Step 3: Join SignalR room while opening the document
 
 When opening a document, we need to generate a unique ID for each document. These unique IDs are then used to create rooms using SignalR, which facilitates sending and receiving data from the server.
 
-```typescript
+{% if page.publishingplatform == "typescript" %}
+{% tabs %}
+{% highlight ts tabtitle="index.ts" %}
+{% include code-snippet/document-editor/collaborative-editing-cs1/script-2.ts %}
+{% endhighlight %}
+{% endtabs %}
 
-function openDocument(sfdt: string, roomName: string): void {
-    et data = JSON.parse(responseText);
-    //Get collaborative editing module.
-    connections = container.documentEditor.collaborativeEditingHandlerModule;
-    //Configure collaborative editing room name in collaborative editing module
-    connections.updateRoomInfo(roomName, data.version, serviceUrl);
-        container.documentEditor.open(data.sfdt);
-        setTimeout(function () {
-            // connect to signalR room with specified name.
-            start({ action: 'connect', roomName: roomName, currentUser: container.currentUser }, null);
-        });
-    }
-```
+{% elsif page.publishingplatform == "javascript" %}
+
+{% tabs %}
+{% highlight js tabtitle="index.js" %}
+{% include code-snippet/document-editor/collaborative-editing-cs1/script-2.js %}
+{% endhighlight %}
+{% endtabs %}
+
+{% endif %}
 
 ### Step 5: Broadcast current editing changes to remote users
 
 Changes made on the client-side need to be sent to the server-side to broadcast them to other connected users. To send the changes made to the server, use the method shown below from the document editor using the `contentChange` event.
 
-```typescript
-    container.contentChange = function (args: ContainerContentChangeEventArgs) {
-        if (connections) {
-            //Send current changes to server to broadcast it to other users.
-            connections.sendActionToServer(args.operations)
-        }
-    }
-```
+{% if page.publishingplatform == "typescript" %}
+{% tabs %}
+{% highlight ts tabtitle="index.ts" %}
+{% include code-snippet/document-editor/collaborative-editing-cs1/script-3.ts %}
+{% endhighlight %}
+{% endtabs %}
+
+{% elsif page.publishingplatform == "javascript" %}
+
+{% tabs %}
+{% highlight js tabtitle="index.js" %}
+{% include code-snippet/document-editor/collaborative-editing-cs1/script-3.js %}
+{% endhighlight %}
+{% endtabs %}
+
+{% endif %}
 
 ## How to enable collaborative editing in ASP.NET Core
 
