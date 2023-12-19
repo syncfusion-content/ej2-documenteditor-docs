@@ -1,9 +1,7 @@
-import { DocumentEditorContainer, DocumentEditor, CollaborativeEditingHandler} from '@syncfusion/ej2-documenteditor';
-
 // Inject collaborative editing module.
-ej.documenteditor.DocumentEditor.Inject(CollaborativeEditingHandler);
-ej.documenteditor.DocumentEditorContainer.Inject(Toolbar);
-let container = new ej.documenteditor.DocumentEditorContainer({ enableToolbar: true,  height: '590px',});
+ejs.documenteditor.DocumentEditor.Inject(ejs.documenteditor.CollaborativeEditingHandler);
+ejs.documenteditor.DocumentEditorContainer.Inject(ejs.documenteditor.Toolbar);
+let container = new ejs.documenteditor.DocumentEditorContainer({ enableToolbar: true,  height: '590px',});
 
 container.serviceUrl = 'http://localhost:5000/api/documenteditor/';
 container.appendTo('#container');
