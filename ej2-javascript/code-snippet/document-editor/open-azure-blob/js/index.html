@@ -42,9 +42,6 @@
 </head>
 
 <body>
-    <div>
-        <button id="load">Open Document From Azure Blob Storage</button>
-    </div>
     <div id='DocumentEditor' style='height:620px'></div>
     <script>
         // Initialize DocumentEditorContainer component.
@@ -53,24 +50,27 @@
         documenteditorContainer.serviceUrl = 'https://services.syncfusion.com/js/production/api/documenteditor/';
         //DocumentEditorContainer control rendering starts
         documenteditorContainer.appendTo('#DocumentEditor');
-        document.getElementById('load').addEventListener('click', function () {
-            load();
-        });
-
-        async function load() {
-            const response = await fetch(
-                'http://localhost:62870/api/documenteditor/LoadFromAzure',
-                {
-                    method: 'Get',
-                    headers: { 'Content-Type': 'application/json;charset=UTF-8' },
-                }
-            );
-
-            if (response.status === 200 || response.status === 304) {
-                var json = await response.json();
-                documenteditorContainer.documentEditor.open(JSON.stringify(json));
+        fetch(
+            'http://localhost:62870/api/documenteditor/LoadFromAzure',
+            {
+                method: 'Post',
+                headers: { 'Content-Type': 'application/json;charset=UTF-8' },
+                body: JSON.stringify({ documentName: 'Getting Started.docx' })
             }
-        }
+        )
+            then(response => {
+                if (response.status === 200 || response.status === 304) {
+                    return response.json(); // Return the Promise
+                } else {
+                    throw new Error('Error loading data');
+                }
+            })
+            .then(json => {
+                documenteditorContainer.documentEditor.open(JSON.stringify(json));
+            })
+            .catch(error => {
+                console.error(error);
+            });
     </script>
 </body>
 
