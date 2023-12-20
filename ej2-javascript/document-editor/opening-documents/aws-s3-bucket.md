@@ -85,7 +85,7 @@ public async Task<string> LoadFromS3([FromBody] Dictionary<string, string> jsonO
 
   if (jsonObject == null && !jsonObject.ContainsKey("documentName"))
   {
-     return null
+     return null;
   }
   RegionEndpoint bucketRegion = RegionEndpoint.USEast1;
 

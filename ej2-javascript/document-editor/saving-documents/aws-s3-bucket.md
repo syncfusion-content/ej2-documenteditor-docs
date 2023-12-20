@@ -9,7 +9,7 @@ documentation: ug
 domainurl: ##DomainURL##
 ---
 
-# Save PDF file to AWS S3
+# Save document to AWS S3
 
 To save a document to AWS S3, you can follow the steps below
 
