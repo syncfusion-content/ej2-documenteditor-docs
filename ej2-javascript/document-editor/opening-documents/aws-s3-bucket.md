@@ -83,7 +83,7 @@ In `startup.cs`, register profile in below format:
 Amazon.Util.ProfileManager.RegisterProfile("sync_development","", "");
 ```
 
->Note: Replace Your Access Key from AWS S3, Your Secret Key from AWS S3, and Your Bucket name from AWS S3 with your actual AWS access key, secret key and bucket name
+>Note: Replace Your Access Key from AWS S3, Your Secret Key from AWS S3, and Your Bucket name from AWS S3 with your actual AWS access key, secret key and bucket name, Replace AWSProfileName with Your IAM account number from AWS S3.
 
 * In the server-side, retrieve the word document from AWS S3 Bucket and convert it to **Syncfusion Document Text (.sfdt)**.
 
@@ -94,7 +94,7 @@ Amazon.Util.ProfileManager.RegisterProfile("sync_development","", "");
 [Route("LoadFromS3")]
 public async Task<string> LoadFromS3()
     {
-        var s3Client = new AmazonS3Client();
+        var s3Client = new AmazonS3Client(AWS_accesskey,AWS_secretkey,AWS_Region);
         // Set the bucket name and object key of the DOCX document
         var bucketName = "bucketName";
         var objectKey = "sample.docx";
