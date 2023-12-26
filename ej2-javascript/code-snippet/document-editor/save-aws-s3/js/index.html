@@ -76,7 +76,7 @@
         // Initialize DocumentEditorContainer component.
         var documenteditorContainer = new ej.documenteditor.DocumentEditorContainer({ enableToolbar: true, height: '590px' });
         ej.documenteditor.DocumentEditorContainer.Inject(ej.documenteditor.Toolbar);
-        documenteditorContainer.serviceUrl = 'https://services.syncfusion.com/js/production/api/documenteditor/';
+        documenteditorContainer.serviceUrl = 'http://localhost:62870/api/documenteditor/';
         //DocumentEditorContainer control rendering starts
         documenteditorContainer.appendTo('#DocumentEditor');
         document.getElementById('export').addEventListener('click', function () {
@@ -85,10 +85,10 @@
 
         async function save() {
             container.documentEditor.saveAsBlob('Docx').then((blob) => {
-                let exportedDocument = blob;
+                var exportedDocument = blob;
                 //Now, save the document where ever you want.
-                let formData = new FormData();
-                formData.append('fileName', 'sample.docx');
+                var formData = new FormData();
+                formData.append('documentName', container.documentEditor.documentName);
                 formData.append('data', exportedDocument);
                 /* tslint:disable */
                 var req = new XMLHttpRequest();

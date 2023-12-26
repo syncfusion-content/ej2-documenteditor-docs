@@ -5,7 +5,7 @@ import { DocumentEditorContainer, Toolbar } from '@syncfusion/ej2-documenteditor
 DocumentEditorContainer.Inject(Toolbar);
 
 //Initialize Document Editor component
-let documentEditorContainer: DocumentEditorContainer = new DocumentEditorContainer({ enableToolbar: true, height: '590px', serviceUrl: 'https://services.syncfusion.com/js/production/api/documenteditor/' });
+let documentEditorContainer: DocumentEditorContainer = new DocumentEditorContainer({ enableToolbar: true, height: '590px', serviceUrl: 'http://localhost:62870/api/documenteditor/' });
 
 // Render Document Editor component.
 documentEditorContainer.appendTo('#DocumentEditor');
@@ -19,7 +19,7 @@ async function save(): Promise<void> {
         let exportedDocument = blob;
         //Now, save the document where ever you want.
         let formData: FormData = new FormData();
-        formData.append('fileName', 'sample.docx');
+        formData.append('documentName', documentEditorContainer.documentEditor.documentName);
         formData.append('data', exportedDocument);
         /* tslint:disable */
         let req = new XMLHttpRequest();
