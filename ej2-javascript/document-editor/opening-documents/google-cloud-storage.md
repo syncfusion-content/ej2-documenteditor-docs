@@ -1,17 +1,17 @@
 ---
 layout: post
-title: Open document from AWS S3 in ##Platform_Name## Document editor control | Syncfusion
-description:  Learn about how to Open document from AWS S3 in ##Platform_Name## Document editor control of Syncfusion Essential JS 2 and more details.
+title: Open document from Google Cloud Storage in ##Platform_Name## Document editor control | Syncfusion
+description: Learn about how to Open document from Google Cloud Storage in ##Platform_Name## Document editor control of Syncfusion Essential JS 2 and more details.
 platform: ej2-javascript
-control: Open document from AWS S3
+control: Open document from Google Cloud Storage
 publishingplatform: ##Platform_Name##
 documentation: ug
 domainurl: ##DomainURL##
 ---
 
-# Open document from AWS S3
+# Open document from Google Cloud Storage
 
-To load a document from AWS S3 in a Document Editor, you can follow the steps below
+To load a document from Google Cloud Storage in a Document editor, you can follow the steps below
 
 {% if page.publishingplatform == "typescript" %}
 
@@ -23,7 +23,7 @@ Start by following the steps provided in this [link](../../document-editor/ts/ge
 
 **Step 1:** Create a Simple Document Editor Sample in Javascript
 
-Start by following the steps provided in this [link](../../document-editor/js/getting-started) to create a simple Document Editor sample in Javascript. This will give you a basic setup of the Document Editor component. 
+Start by following the steps provided in this [link](../../document-editor/js/getting-started) to create a simple Document Editor sample in Javascript. This will give you a basic setup of the Document Editor component.
 
 {% endif %}
 
@@ -45,66 +45,67 @@ Start by following the steps provided in this [link](../../document-editor/js/ge
 
 ```csharp
 using System.IO;
-using Amazon;
-using Amazon.S3;
-using Amazon.S3.Model;
+using Google.Cloud.Storage.V1;
+using Google.Apis.Auth.OAuth2;
 ```
 
 * Add the following private fields and constructor parameters to the `DocumentEditorController` class, In the constructor, assign the values from the configuration to the corresponding fields
 
 ```csharp
+// Private readonly object _storageClient
+private readonly StorageClient _storageClient;
+
 private IConfiguration _configuration;
-public readonly string _accessKey;
-public readonly string _secretKey;
+
 public readonly string _bucketName;
 
 public DocumentEditorController(IWebHostEnvironment hostingEnvironment, IMemoryCache cache, IConfiguration configuration)
 {
   _hostingEnvironment = hostingEnvironment;
   _cache = cache;
-  _configuration = configuration;
-  _accessKey = _configuration.GetValue<string>("AccessKey");
-  _secretKey = _configuration.GetValue<string>("SecretKey");
-  _bucketName = _configuration.GetValue<string>("BucketName");
+
+  // The key file is used to authenticate with Google Cloud Storage.
+  string keyFilePath = "path/to/service-account-key.json";
+
+  // Load the service account credentials from the key file.
+  var credentials = GoogleCredential.FromFile(keyFilePath);
+
+  // Create a storage client with Application Default Credentials
+  _storageClient = StorageClient.Create(credentials);
+
+   _configuration = configuration;
+
+   _bucketName = _configuration.GetValue<string>("BucketName");
 }
 ```
 
-* Create the `LoadFromS3()` method to load the document from AWS S3.
+* Create the `LoadFromGoogleCloud()` method to load the document from Google Cloud Storage.
 
 ```csharp
-
 [AcceptVerbs("Post")]
 [HttpPost]
 [EnableCors("AllowAllOrigins")]
-[Route("LoadFromS3")]
+[Route("LoadFromGoogleCloud")]
 //Post action for Loading the documents
 
-public async Task<string> LoadFromS3([FromBody] Dictionary<string, string> jsonObject)
+public async Task<string> LoadFromGoogleCloud([FromBody] Dictionary<string, string> jsonObject)
 {
-  MemoryStream stream = new MemoryStream();
+    if (jsonObject == null && !jsonObject.ContainsKey("documentName"))
+    {
+      return null
+    }
+    MemoryStream stream = new MemoryStream();
 
-  if (jsonObject == null && !jsonObject.ContainsKey("documentName"))
-  {
-     return null;
-  }
-  RegionEndpoint bucketRegion = RegionEndpoint.USEast1;
+    string bucketName = _bucketName;
+    string objectName = jsonObject["document"];
+    _storageClient.DownloadObject(bucketName, objectName, stream);
+    stream.Position = 0;
 
-  // Configure the AWS SDK with your access credentials and other settings
-  var s3Client = new AmazonS3Client(_accessKey, _secretKey, bucketRegion);
-      
-  string documentName = jsonObject["documentName"];
-      
-  // Specify the document name or retrieve it from a different source
-  var response = await s3Client.GetObjectAsync(_bucketName, documentName);
-      
-  Stream responseStream = response.ResponseStream;
-  responseStream.CopyTo(stream);
-  stream.Seek(0, SeekOrigin.Begin);
-  WordDocument document = WordDocument.Load(stream, FormatType.Docx);
-  string json = Newtonsoft.Json.JsonConvert.SerializeObject(document);
-  document.Dispose();
-  stream.Close();
-  return json;
+    WordDocument document = WordDocument.Load(stream, FormatType.Docx);
+    string json = Newtonsoft.Json.JsonConvert.SerializeObject(document);
+    document.Dispose();
+    stream.Close();
+    return json;
 }
 ```
 
@@ -119,13 +120,13 @@ public async Task<string> LoadFromS3([FromBody] Dictionary<string, string> jsonO
     }
   },
   "AllowedHosts": "*",
-  "AccessKey": "Your Access Key from AWS S3",
-  "SecretKey": "Your Secret Key from AWS S3",
-  "BucketName": "Your Bucket name from AWS S3"
+  "BucketName": "Your Bucket name from Google Cloud Storage"
 }
 ```
 
-N> Replace **Your Access Key from AWS S3**, **Your Secret Key from AWS S3**, and **Your Bucket name from AWS S3** with your actual AWS access key, secret key and bucket name
+N> Replace **Your Bucket name from Google Cloud Storage** with the actual name of your Google Cloud Storage bucket
+
+N> Replace **path/to/service-account-key.json** with the actual file path to your service account key JSON file. Make sure to provide the correct path and filename.
 
 **Step 3:**  Modify the index File in the Document Editor sample
 
@@ -135,10 +136,10 @@ In the client-side, the document is returned from the web service is opening usi
 
 {% tabs %}
 {% highlight js tabtitle="index.js" %}
-{% include code-snippet/document-editor/open-aws-s3/index.ts %}
+{% include code-snippet/document-editor/open-google-cloud-storage/index.ts %}
 {% endhighlight %}
 {% highlight html tabtitle="index.html" %}
-{% include code-snippet/document-editor/open-aws-s3/index.html %}
+{% include code-snippet/document-editor/open-google-cloud-storage/index.html %}
 {% endhighlight %}
 {% endtabs %}
 
@@ -146,10 +147,10 @@ In the client-side, the document is returned from the web service is opening usi
 
 {% tabs %}
 {% highlight html tabtitle="index.html" %}
-{% include code-snippet/document-editor/open-aws-s3/index.html %}
+{% include code-snippet/document-editor/open-google-cloud-storage/index.html %}
 {% endhighlight %}
 {% endtabs %}
 
 {% endif %}
 
-N> The **AWSSDK.S3** NuGet package must be installed in your application to use the previous code example.
+N> The **Google.Cloud.Storage.V1** NuGet package must be installed in your application to use the previous code example.

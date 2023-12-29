@@ -1,17 +1,17 @@
 ---
 layout: post
-title: Save document to AWS S3 in ##Platform_Name## Document editor control | Syncfusion
-description:  Learn about how to Save document to AWS S3 in ##Platform_Name## Document editor of Syncfusion Essential JS 2 and more details.
+title: Save document to Google Cloud Storage in ##Platform_Name## Document editor control | Syncfusion
+description:  Learn about how to Save document to Google Cloud Storage in ##Platform_Name## Document editor control of Syncfusion Essential JS 2 and more details.
 platform: ej2-javascript
-control: Save document to AWS S3
+control: Save document to Google Cloud Storage
 publishingplatform: ##Platform_Name##
 documentation: ug
 domainurl: ##DomainURL##
 ---
 
-# Save document to AWS S3
+# Save document to Google Cloud Storage
 
-To save a document to AWS S3, you can follow the steps below
+To save a document to Google Cloud Storage, you can follow the steps below
 
 {% if page.publishingplatform == "typescript" %}
 
@@ -27,7 +27,7 @@ Follow the instructions provided in this [link](../../document-editor/js/getting
 
 {% endif %}
 
-**Step 2:** Modify the `DocumentEditorController.cs` File in the Web Service Project
+**Step 2:** Create the `DocumentEditorController.cs` File in the Web Service Project
 
 {% if page.publishingplatform == "typescript" %}
 
@@ -45,62 +45,66 @@ Follow the instructions provided in this [link](../../document-editor/js/getting
 
 ```csharp
 using System.IO;
-using Amazon;
-using Amazon.S3;
-using Amazon.S3.Model;
+using Google.Cloud.Storage.V1;
+using Google.Apis.Auth.OAuth2;
 ```
 
 * Add the following private fields and constructor parameters to the `DocumentEditorController` class, In the constructor, assign the values from the configuration to the corresponding fields
 
 ```csharp
+// Private readonly object _storageClient
+private readonly StorageClient _storageClient;
+
 private IConfiguration _configuration;
-public readonly string _accessKey;
-public readonly string _secretKey;
+
 public readonly string _bucketName;
 
 public DocumentEditorController(IWebHostEnvironment hostingEnvironment, IMemoryCache cache, IConfiguration configuration)
 {
   _hostingEnvironment = hostingEnvironment;
   _cache = cache;
-  _configuration = configuration;
-  _accessKey = _configuration.GetValue<string>("AccessKey");
-  _secretKey = _configuration.GetValue<string>("SecretKey");
-  _bucketName = _configuration.GetValue<string>("BucketName");
+
+  // The key file is used to authenticate with Google Cloud Storage.
+  string keyFilePath = "path/to/service-account-key.json";
+
+  // Load the service account credentials from the key file.
+  var credentials = GoogleCredential.FromFile(keyFilePath);
+
+  // Create a storage client with Application Default Credentials
+  _storageClient = StorageClient.Create(credentials);
+
+   _configuration = configuration;
+
+   _bucketName = _configuration.GetValue<string>("BucketName");
 }
 ```
 
-* Create the `SaveToS3()` method to save the document to AWS S3 bucket
+* Create the `SaveToGoogleCloud()` method to save the downloaded document to Google Cloud Storage bucket
 
 ```csharp
-
 [AcceptVerbs("Post")]
 [HttpPost]
 [EnableCors("AllowAllOrigins")]
-[Route("SaveToS3")]
-//Post action for save the document to AWS S3
-
-public void SaveToS3(IFormCollection data)
+[Route("SaveToGoogleCloud")]
+//Post action for downloading the document
+public void SaveToGoogleCloud(IFormCollection data)
 {
-  if (data.Files.Count == 0)
+   if (data.Files.Count == 0)
     return;
-  RegionEndpoint bucketRegion = RegionEndpoint.USEast1;
-  // Configure the AWS SDK with your access credentials and other settings
-  var s3Client = new AmazonS3Client(_accessKey, _secretKey, bucketRegion);
-  string bucketName = _bucketName;
+
   IFormFile file = data.Files[0];
   string documentName = this.GetValue(data, "documentName");
   string result = Path.GetFileNameWithoutExtension(documentName);
+
+  string bucketName = _bucketName;
+
   Stream stream = new MemoryStream();
   file.CopyTo(stream);
-  var request = new PutObjectRequest
-  {
-    BucketName = bucketName,
-    Key = result + "_downloaded.docx",
-    InputStream = stream,
-  };
-  // Upload the document to AWS S3
-  var response = s3Client.PutObjectAsync(request).Result;
-}
+
+  // Upload the document to Google Cloud Storage
+  _storageClient.UploadObject(bucketName, result + "_downloaded.docx", null, stream);
+
+}   
 
 private string GetValue(IFormCollection data, string key)
 {
@@ -127,26 +131,26 @@ private string GetValue(IFormCollection data, string key)
     }
   },
   "AllowedHosts": "*",
-  "AccessKey": "Your Access Key from AWS S3",
-  "SecretKey": "Your Secret Key from AWS S3",
-  "BucketName": "Your Bucket name from AWS S3"
+  "BucketName": "Your Bucket name from Google Cloud Storage"
 }
 ```
 
-N> Replace **Your Access Key from AWS S3**, **Your Secret Key from AWS S3**, and **Your Bucket name from AWS S3** with your actual AWS access key, secret key and bucket name
+N> Replace **Your Bucket name from Google Cloud Storage** with the actual name of your Google Cloud Storage bucket
 
-**Step 3:**  Modify the index File in the Document Editor sample
+N> Replace **path/to/service-account-key.json** with the actual file path to your service account key JSON file. Make sure to provide the correct path and filename.
 
-In the client-side, to export the document into blob the document using [`saveAsBlob`](../../api/document-editor/#saveAsBlob) and sent to server-side for saving in AWS S3 Bucket.
+**Step 4:**  Modify the index File in the Document Editor sample
+
+In the client-side, to export the document into blob the document using [`saveAsBlob`](../../api/document-editor/#saveAsBlob) and sent to server-side for saving in Google Cloud Storage.
 
 {% if page.publishingplatform == "typescript" %}
 
 {% tabs %}
 {% highlight js tabtitle="index.js" %}
-{% include code-snippet/document-editor/save-aws-s3/index.ts %}
+{% include code-snippet/document-editor/save-google-cloud-storage/index.ts %}
 {% endhighlight %}
 {% highlight html tabtitle="index.html" %}
-{% include code-snippet/document-editor/save-aws-s3/index.html %}
+{% include code-snippet/document-editor/save-google-cloud-storage/index.html %}
 {% endhighlight %}
 {% endtabs %}
 
@@ -154,10 +158,10 @@ In the client-side, to export the document into blob the document using [`saveAs
 
 {% tabs %}
 {% highlight html tabtitle="index.html" %}
-{% include code-snippet/document-editor/save-aws-s3/index.html %}
+{% include code-snippet/document-editor/save-google-cloud-storage/index.html %}
 {% endhighlight %}
 {% endtabs %}
 
 {% endif %}
 
-N> The **AWSSDK.S3** NuGet package must be installed in your application to use the previous code example.
+N> The **Google.Cloud.Storage.V1** NuGet package must be installed in your application to use the previous code example.

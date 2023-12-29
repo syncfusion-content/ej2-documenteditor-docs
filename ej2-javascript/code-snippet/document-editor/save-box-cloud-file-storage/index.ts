@@ -26,7 +26,7 @@ async function save(): Promise<void> {
         // Replace your running Url here
         req.open(
             'POST',
-            'http://localhost:62870/api/documenteditor/SaveToAzure',
+            'http://localhost:62870/api/documenteditor/SaveToBoxCloud',
             true
         );
         req.onreadystatechange = () => {

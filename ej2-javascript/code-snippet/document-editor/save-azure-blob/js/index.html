@@ -50,26 +50,37 @@
         // Initialize DocumentEditorContainer component.
         var documenteditorContainer = new ej.documenteditor.DocumentEditorContainer({ enableToolbar: true, height: '590px' });
         ej.documenteditor.DocumentEditorContainer.Inject(ej.documenteditor.Toolbar);
-        documenteditorContainer.serviceUrl = 'https://services.syncfusion.com/js/production/api/documenteditor/';
+        documenteditorContainer.serviceUrl = 'http://localhost:62870/api/documenteditor/';
         //DocumentEditorContainer control rendering starts
         documenteditorContainer.appendTo('#DocumentEditor');
         document.getElementById('export').addEventListener('click', function () {
             save();
         });
-
+        
         async function save() {
-            var sfdt = {
-                content: documenteditorContainer.documentEditor.serialize(),
-                Filename: 'sample.docx',
-            };
-            var response = await fetch(
-                'http://localhost:62870/api/documenteditor/SaveToAzure',
-                {
-                    method: 'Post',
-                    headers: { 'Content-Type': 'application/json;charset=UTF-8' },
-                    body: JSON.stringify(sfdt),
-                }
-            );
+            container.documentEditor.saveAsBlob('Docx').then((blob) => {
+                var exportedDocument = blob;
+                //Now, save the document where ever you want.
+                var formData = new FormData();
+                formData.append('documentName', container.documentEditor.documentName);
+                formData.append('data', exportedDocument);
+                /* tslint:disable */
+                var req = new XMLHttpRequest();
+                // Replace your running Url here
+                req.open(
+                    'POST',
+                    'http://localhost:62870/api/documenteditor/SaveToAzure',
+                    true
+                );
+                req.onreadystatechange = () => {
+                    if (req.readyState === 4) {
+                        if (req.status === 200 || req.status === 304) {
+                            console.log('Saved sucessfully');
+                        }
+                    }
+                };
+                req.send(formData);
+            });
         }
     </script>
 </body>
