@@ -11,12 +11,12 @@ let documentEditorContainer: DocumentEditorContainer = new DocumentEditorContain
 documentEditorContainer.appendTo('#DocumentEditor');
 
 document.getElementById('load').addEventListener('click', (): void => {
-    load();
+  load();
 });
 
 function load(): void {
   fetch(
-    'http://localhost:62870/api/documenteditor/LoadFromAzure',
+    'http://localhost:62870/api/documenteditor/LoadFromOneDrive',
     {
       method: 'Post',
       headers: { 'Content-Type': 'application/json;charset=UTF-8' },

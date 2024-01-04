@@ -50,26 +50,35 @@
         // Initialize DocumentEditorContainer component.
         var documenteditorContainer = new ej.documenteditor.DocumentEditorContainer({ enableToolbar: true, height: '590px' });
         ej.documenteditor.DocumentEditorContainer.Inject(ej.documenteditor.Toolbar);
-        documenteditorContainer.serviceUrl = 'https://services.syncfusion.com/js/production/api/documenteditor/';
+        documenteditorContainer.serviceUrl = 'http://localhost:62870/api/documenteditor/';
         //DocumentEditorContainer control rendering starts
         documenteditorContainer.appendTo('#DocumentEditor');
         document.getElementById('load').addEventListener('click', function () {
             load();
         });
-
-        async function load() {
-            const response = await fetch(
+        
+        function load() {
+            fetch(
                 'http://localhost:62870/api/documenteditor/LoadFromAzure',
                 {
-                    method: 'Get',
+                    method: 'Post',
                     headers: { 'Content-Type': 'application/json;charset=UTF-8' },
+                    body: JSON.stringify({ documentName: 'Getting Started.docx' })
                 }
-            );
-
-            if (response.status === 200 || response.status === 304) {
-                var json = await response.json();
-                documenteditorContainer.documentEditor.open(JSON.stringify(json));
-            }
+            )
+                .then(response => {
+                    if (response.status === 200 || response.status === 304) {
+                        return response.json(); // Return the Promise
+                    } else {
+                        throw new Error('Error loading data');
+                    }
+                })
+                .then(json => {
+                    documenteditorContainer.documentEditor.open(JSON.stringify(json));
+                })
+                .catch(error => {
+                        console.error(error);
+                });
         }
     </script>
 </body>
