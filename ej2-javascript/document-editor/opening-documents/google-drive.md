@@ -21,13 +21,13 @@ You must set up a project in the Google Developers Console and enable the Google
 
 **Step 2:** Create a Simple Document Editor Sample in TypeScript
 
-Start by following the steps provided in this [link](../../document-editor/ts/getting-started) to create a simple Document Editor sample in Typescript. This will give you a basic setup of the Document Editor component. 
+Start by following the steps provided in this [link](../../document-editor/getting-started) to create a simple Document Editor sample in Typescript. This will give you a basic setup of the Document Editor component. 
 
 {% elsif page.publishingplatform == "javascript" %}
 
 **Step 2:** Create a Simple Document Editor Sample in Javascript
 
-Start by following the steps provided in this [link](../../document-editor/js/getting-started) to create a simple Document Editor sample in Javascript. This will give you a basic setup of the Document Editor component.
+Start by following the steps provided in this [link](../../document-editor/getting-started) to create a simple Document Editor sample in Javascript. This will give you a basic setup of the Document Editor component.
 
 {% endif %}
 
@@ -35,11 +35,11 @@ Start by following the steps provided in this [link](../../document-editor/js/ge
 
 {% if page.publishingplatform == "typescript" %}
 
-* Create a web service project in .NET Core 3.0 or above. You can refer to this [link](../../document-editor/ts/web-services-overview) for instructions on how to create a web service project.
+* Create a web service project in .NET Core 3.0 or above. You can refer to this [link](../../document-editor/web-services-overview) for instructions on how to create a web service project.
 
 {% elsif page.publishingplatform == "javascript" %}
 
-* Create a web service project in .NET Core 3.0 or above. You can refer to this [link](../../document-editor/js/web-services-overview) for instructions on how to create a web service project.
+* Create a web service project in .NET Core 3.0 or above. You can refer to this [link](../../document-editor/web-services-overview) for instructions on how to create a web service project.
 
 {% endif %}
 
