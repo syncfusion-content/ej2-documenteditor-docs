@@ -13,7 +13,7 @@ domainurl: ##DomainURL##
 
 To load a document from One Drive in a Document editor, you can follow the steps below
 
-**Step 1** Create the Microsoft graph API.
+**Step 1:** Create the Microsoft graph API.
 
 Need to create a Microsoft Graph API application and obtain the necessary credentials, namely the application ID and tenant ID. Follow the steps provided in the [link](https://learn.microsoft.com/en-us/training/modules/msgraph-access-file-data/3-exercise-access-files-onedrive) to create the application and obtain the required IDs. 
 
