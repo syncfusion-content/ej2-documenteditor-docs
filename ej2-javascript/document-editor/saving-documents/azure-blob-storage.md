@@ -29,12 +29,6 @@ Follow the instructions provided in this [link](../../document-editor/getting-st
 
 **Step 2:** Modify the `DocumentEditorController.cs` File in the Web Service Project
 
-{% if page.publishingplatform == "typescript" %}
-
-* Create a web service project in .NET Core 3.0 or above. You can refer to this [link](../../document-editor/web-services-overview) for instructions on how to create a web service project.
-
-{% elsif page.publishingplatform == "javascript" %}
-
 * Create a web service project in .NET Core 3.0 or above. You can refer to this [link](../../document-editor/web-services-overview) for instructions on how to create a web service project.
 
 * Open the `DocumentEditorController.cs` file in your web service project.
