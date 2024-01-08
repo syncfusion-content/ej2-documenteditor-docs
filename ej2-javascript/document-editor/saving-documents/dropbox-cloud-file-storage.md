@@ -13,7 +13,7 @@ domainurl: ##DomainURL##
 
 To save a document to Dropbox cloud file storage, you can follow the steps below
 
-**Step 1** Create a Dropbox API
+**Step 1:** Create a Dropbox API
 
 To create a Dropbox API App, you should follow the official documentation provided by Dropbox [link](https://www.dropbox.com/developers/documentation/dotnet#tutorial). The process involves visiting the Dropbox Developer website and using their App Console to set up your API app. This app will allow you to interact with Dropbox programmatically, enabling secure access to files and data.
 
