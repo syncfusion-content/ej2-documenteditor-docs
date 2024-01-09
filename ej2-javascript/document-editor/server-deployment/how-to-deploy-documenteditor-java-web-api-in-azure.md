@@ -16,19 +16,19 @@ Have [`Azure account`](https://azure.microsoft.com/en-gb/) and [`Azure CLI`](htt
 
 You can get the example [`web service project from GitHub`](https://github.com/SyncfusionExamples/EJ2-DocumentEditor-Java-WebService) and then perform the following steps to create the packages and host in azure app service.
 
-**Step 1** Clean the package using following command.
+**Step 1:** Clean the package using following command.
 
 ```console
 mvn clean package
 ```
 
-**Step 2** Run the application locally using following command.
+**Step 2:** Run the application locally using following command.
 
 ```console
 mvn spring-boot:run
 ```
 
-**Step 3** Build the package using following command.
+**Step 3:** Build the package using following command.
 
 ```console
 mvn package
@@ -48,11 +48,11 @@ Then, click `Go` and select the `CMD` options under `Debug console`.
 
 ![Debug console ](../images/azure_java_debugconsole.png)
 
-**Step 6**: Once the file manager is opened, please navigate to
+**Step 6:** Once the file manager is opened, please navigate to
 
 `site -> wwwroot -> webapps`
 
-**Step 7**: Now, upload the generated war file `tomcat-0.0.1-SNAPSHOT.war`. Uploaded war file gets extracted automatically, it will uploaded like below:
+**Step 7:** Now, upload the generated war file `tomcat-0.0.1-SNAPSHOT.war`. Uploaded war file gets extracted automatically, it will uploaded like below:
 
 ![Uploaded war](../images/java_azure_uploaded.png)
 
