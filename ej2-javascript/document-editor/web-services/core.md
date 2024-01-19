@@ -93,16 +93,16 @@ The following example code illustrates how to use `MetafileImageParsed` event fo
     private static void OnMetafileImageParsed(object sender, MetafileImageParsedEventArgs args)
     {       
         if (args.IsMetafile)
-		{
-			//MetaFile image conversion(EMF and WMF)
-			//You can write your own method definition for converting metafile to raster image using any third-party image converter.
-			args.ImageStream = ConvertMetafileToRasterImage(args.MetafileStream);
-		}
-		else
-		{
-			//TIFF image conversion
-			args.ImageStream = ConvertTiffToRasterImage(args.MetafileStream);
-		}
+        {
+            //MetaFile image conversion(EMF and WMF)
+            //You can write your own method definition for converting metafile to raster image using any third-party image converter.
+            args.ImageStream = ConvertMetafileToRasterImage(args.MetafileStream);
+        }
+        else
+        {
+            //TIFF image conversion
+            args.ImageStream = ConvertTiffToRasterImage(args.MetafileStream);
+        }
     }
     
     // Converting Tiff to Png image using Bitmiracle https://www.nuget.org/packages/BitMiracle.LibTiff.NET
