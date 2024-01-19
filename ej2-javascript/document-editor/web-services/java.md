@@ -190,7 +190,7 @@ import com.syncfusion.ej2.wordprocessor.*;
 
     // Converts Metafile to raster image.
     private static void OnMetafileImageParsed(Object sender, MetafileImageParsedEventArgs args) {
-        if (args.getIsMetafile())
+		if (args.getIsMetafile())
 		{
 			//MetaFile image conversion(EMF and WMF)
 			//You can write your own method definition for converting metafile to raster image using any third-party image converter.
@@ -199,45 +199,44 @@ import com.syncfusion.ej2.wordprocessor.*;
 		else
 		{
 			//TIFF image conversion
-			//You can write your own method definition for converting TIFF to raster image using any third-party image converter.
 			args.setImageStream(ConvertTiffToRasterImage(args.getMetafileStream())) ;
 		}
     }
 
 	private static StreamSupport ConvertTiffToRasterImage(StreamSupport ImageStream) throws Exception {
-        InputStream inputStream = StreamSupport.toStream(args.getMetafileStream());
-        // Use ByteArrayOutputStream to collect data into a byte array
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+		InputStream inputStream = StreamSupport.toStream(args.getMetafileStream());
+		// Use ByteArrayOutputStream to collect data into a byte array
+		ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 
-        // Read data from the InputStream and write it to the ByteArrayOutputStream
-        byte[] buffer = new byte[1024];
-        int bytesRead;
-        while ((bytesRead = inputStream.read(buffer)) != -1) {
-            byteArrayOutputStream.write(buffer, 0, bytesRead);
-        }
+		// Read data from the InputStream and write it to the ByteArrayOutputStream
+		byte[] buffer = new byte[1024];
+		int bytesRead;
+		while ((bytesRead = inputStream.read(buffer)) != -1) {
+		    byteArrayOutputStream.write(buffer, 0, bytesRead);
+		}
 
-        // Convert the ByteArrayOutputStream to a byte array
-        byte[] tiffData = byteArrayOutputStream.toByteArray();
-        // Read TIFF image from byte array
-        ByteArrayInputStream tiffInputStream = new ByteArrayInputStream(tiffData);
-         IIORegistry.getDefaultInstance().registerServiceProvider(new TIFFImageReaderSpi());
+		// Convert the ByteArrayOutputStream to a byte array
+		byte[] tiffData = byteArrayOutputStream.toByteArray();
+		// Read TIFF image from byte array
+		ByteArrayInputStream tiffInputStream = new ByteArrayInputStream(tiffData);
+		 IIORegistry.getDefaultInstance().registerServiceProvider(new TIFFImageReaderSpi());
 
-         // Create ImageReader and ImageWriter instances
-         ImageReader tiffReader = ImageIO.getImageReadersByFormatName("TIFF").next();
-         ImageWriter pngWriter = ImageIO.getImageWritersByFormatName("PNG").next();
+		 // Create ImageReader and ImageWriter instances
+		 ImageReader tiffReader = ImageIO.getImageReadersByFormatName("TIFF").next();
+		 ImageWriter pngWriter = ImageIO.getImageWritersByFormatName("PNG").next();
 
-         // Set up input and output streams
-         tiffReader.setInput(ImageIO.createImageInputStream(tiffInputStream));
-         ByteArrayOutputStream pngOutputStream = new ByteArrayOutputStream();
-         pngWriter.setOutput(ImageIO.createImageOutputStream(pngOutputStream));
+		 // Set up input and output streams
+		 tiffReader.setInput(ImageIO.createImageInputStream(tiffInputStream));
+		 ByteArrayOutputStream pngOutputStream = new ByteArrayOutputStream();
+		 pngWriter.setOutput(ImageIO.createImageOutputStream(pngOutputStream));
 
-         // Read the TIFF image and write it as a PNG
-         BufferedImage image = tiffReader.read(0);
-         pngWriter.write(image);
-         pngWriter.dispose();
-         byte[] jpgData = pngOutputStream.toByteArray();
-         InputStream jpgStream = new ByteArrayInputStream(jpgData);
-         return StreamSupport.toStream(jpgStream);
+		 // Read the TIFF image and write it as a PNG
+		 BufferedImage image = tiffReader.read(0);
+		 pngWriter.write(image);
+		 pngWriter.dispose();
+		 byte[] jpgData = pngOutputStream.toByteArray();
+		 InputStream jpgStream = new ByteArrayInputStream(jpgData);
+		 return StreamSupport.toStream(jpgStream);
     }
 ```
 
