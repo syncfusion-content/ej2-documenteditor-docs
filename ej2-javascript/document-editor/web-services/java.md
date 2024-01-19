@@ -203,7 +203,7 @@ import com.syncfusion.ej2.wordprocessor.*;
         }
     }
 
-	private static StreamSupport ConvertTiffToRasterImage(StreamSupport ImageStream) throws Exception {
+    private static StreamSupport ConvertTiffToRasterImage(StreamSupport ImageStream) throws Exception {
         InputStream inputStream = StreamSupport.toStream(args.getMetafileStream());
         // Use ByteArrayOutputStream to collect data into a byte array
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
