@@ -140,6 +140,12 @@ The following example code illustrates how to use `MetafileImageParsed` event fo
 ```java
 import com.syncfusion.javahelper.system.collections.generic.*;
 import com.syncfusion.ej2.wordprocessor.*;
+// Below import statements are used for TIFF image conversion
+import javax.imageio.*;
+import javax.imageio.spi.IIORegistry;
+import java.awt.image.BufferedImage;
+import java.io.*;
+import com.twelvemonkeys.imageio.plugins.tiff.TIFFImageReaderSpi;
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PostMapping("/api/wordeditor/Import")
