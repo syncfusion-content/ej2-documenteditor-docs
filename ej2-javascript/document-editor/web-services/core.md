@@ -57,7 +57,7 @@ The following example code illustrates how to write a Web API for importing Word
 
 The web browsers do not support to display metafile images like EMF and WMF and also TIFF format images. As a fallback approach, you can convert the metafile/TIFF format image to raster image using any image converter in the `MetafileImageParsed` event and this fallback raster image will be displayed in the client-side Document editor component.
 
->Note: In `MetafileImageParsedEventArgs` event argument, you can get the metafile stream using `MetafileStream` property and you can get the `IsMetafile` boolean value to determine whether the image  is meta file images(WMF,EMF) or Tiff format images.
+>Note: In `MetafileImageParsedEventArgs` event argument, you can get the metafile stream using `MetafileStream` property and you can get the `IsMetafile` boolean value to determine whether the image  is meta file images(WMF,EMF) or Tiff format images. In below example, we have converted the TIFF to raster image in `ConvertTiffToRasterImage()` method using `Bitmiracle https://www.nuget.org/packages/BitMiracle.LibTiff.NET`.
 
 The following example code illustrates how to use `MetafileImageParsed` event for creating fallback raster image for metafile present in a Word document.
 
@@ -93,21 +93,20 @@ The following example code illustrates how to use `MetafileImageParsed` event fo
     private static void OnMetafileImageParsed(object sender, MetafileImageParsedEventArgs args)
     {       
         if (args.IsMetafile)
-		{
-			//MetaFile image conversion(EMF and WMF)
-			//You can write your own method definition for converting metafile to raster image using any third-party image converter.
-			args.ImageStream = ConvertMetafileToRasterImage(args.MetafileStream);
-		}
-		else
-		{
-			//TIFF image conversion
-			//You can write your own method definition for converting TIFF to raster image using any third-party image converter.
-			args.ImageStream = ConvertTiffToRasterImage(args.MetafileStream);
-		}
+        {
+            //MetaFile image conversion(EMF and WMF)
+            //You can write your own method definition for converting metafile to raster image using any third-party image converter.
+            args.ImageStream = ConvertMetafileToRasterImage(args.MetafileStream);
+        }
+        else
+        {
+            //TIFF image conversion
+            args.ImageStream = ConvertTiffToRasterImage(args.MetafileStream);
+        }
     }
     
     // Converting Tiff to Png image using Bitmiracle https://www.nuget.org/packages/BitMiracle.LibTiff.NET
-    private static MemoryStream TiffToPNG(Stream tiffStream)
+    private static MemoryStream ConvertTiffToRasterImage(Stream tiffStream)
     {
         MemoryStream imageStream = new MemoryStream();
         using (Tiff tif = Tiff.ClientOpen("in-memory", "r", tiffStream, new TiffStream()))
