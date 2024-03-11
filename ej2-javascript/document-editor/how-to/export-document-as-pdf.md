@@ -23,6 +23,8 @@ Use [`pdf export component`](https://www.npmjs.com/package/@syncfusion/ej2-pdf-e
 
 The following example code illustrates how to export the document as pdf in client-side.
 
+{% if page.publishingplatform == "typescript" %}
+
 ```ts
 import {
     DocumentEditorContainer,
@@ -92,6 +94,52 @@ document.getElementById('export').addEventListener('click', function () {
     }
 });
 ```
+{% elsif page.publishingplatform == "javascript" %}
+
+```js
+// Initialize DocumentEditorContainer component.
+        var documenteditorContainer = new ej.documenteditor.DocumentEditorContainer({ enableToolbar: true, height: '590px' });
+        ej.documenteditor.DocumentEditorContainer.Inject(ej.documenteditor.Toolbar);
+        documenteditorContainer.serviceUrl = 'http://localhost:62870/api/documenteditor/';
+        //DocumentEditorContainer control rendering starts
+        documenteditorContainer.appendTo('#DocumentEditor');
+
+        document.getElementById('export').addEventListener('click', function () {
+            let pdfdocument = new ej.pdfexport.PdfDocument();
+            let count = container.documentEditor.pageCount;
+            container.documentEditor.documentEditorSettings.printDevicePixelRatio = 2;
+            let loadedPage = 0;
+            for (let i = 1; i <= count; i++) {
+                setTimeout(() => {
+                    let format = 'image/jpeg';
+                    // Getting pages as image
+                    let image = container.documentEditor.exportAsImage(i, format);
+                    image.onload = function () {
+                        let imageHeight = parseInt(image.style.height.toString().replace('px', ''));
+                        let imageWidth = parseInt(image.style.width.toString().replace('px', ''));
+                        let section = pdfdocument.sections.add();
+                        let settings = new ej.pdfexport.PdfPageSettings(0);
+                        if (imageWidth > imageHeight) {
+                            settings.orientation = PdfPageOrientation.Landscape;
+                        }
+                        settings.size = new ej.pdfexport.SizeF(imageWidth, imageHeight);
+                        section.setPageSettings(settings);
+                        let page = section.pages.add();
+                        let graphics = page.graphics;
+                        let imageStr = image.src.replace('data:image/jpeg;base64,', '');
+                        let pdfImage = new ej.pdfexport.PdfBitmap(imageStr);
+                        graphics.drawImage(pdfImage, 0, 0, imageWidth, imageHeight);
+                        loadedPage++;
+                        if (loadedPage == count) {
+                            // Exporting the document as pdf
+                            pdfdocument.save((container.documentEditor.documentName === ''? 'sample': container.documentEditor.documentName) + '.pdf');
+                        }
+                    };
+                }, 500);
+            }
+        })
+```
+{% endif %}
 
 ## Export document as pdf in server-side using Syncfusion DocIO
 
