@@ -82,3 +82,46 @@ Comment only protection can be enabled in UI by using [Restrict Editing pane](..
 ![Enable comment only protection](images/commentsonly.png)
 
 >Note: In enforce Protection method, first parameter denotes password and second parameter denotes protection type. Possible values of protection type are `NoProtection |ReadOnly |FormFieldsOnly |CommentsOnly`. In stop protection method, parameter denotes the password.
+
+## Mention Support in comments
+
+Mention support displays a list of items that users can select or tag from the suggested list. To use this feature, type the @ character in the comment box and select or tag the user from the suggestion list.
+
+The following example illustrates how to enable mention support in Document Editor
+
+```ts
+let mentionData: any = [
+    { "Name": "Selma Rose", "Eimg": "3", "EmailId": "selma@mycompany.com" },
+    { "Name": "Russo Kay", "Eimg": "8", "EmailId": "russo@mycompany.com" },
+    { "Name": "Camden Kate", "Eimg": "9", "EmailId": "camden@mycompany.com" },
+    { "Name": "Mary Kate", "Eimg": "4", "EmailId": "marry@mycompany.com" },
+    { "Name": "Ursula Ann", "Eimg": "2", "EmailId": "ursula@mycompany.com" },
+    { "Name": "Margaret", "Eimg": "5", "EmailId": "margaret@mycompany.com" },
+    { "Name": "Laura Grace", "Eimg": "6", "EmailId": "laura@mycompany.com" },
+    { "Name": "Robert", "Eimg": "8", "EmailId": "robert@mycompany.com" },
+    { "Name": "Albert", "Eimg": "9", "EmailId": "albert@mycompany.com" },
+    { "Name": "Michale", "Eimg": "10", "EmailId": "michale@mycompany.com" },
+    { "Name": "Andrew James", "Eimg": "7", "EmailId": "james@mycompany.com" },
+    { "Name": "Rosalie", "Eimg": "4", "EmailId": "rosalie@mycompany.com" },
+    { "Name": "Stella Ruth", "Eimg": "2", "EmailId": "stella@mycompany.com" },
+    { "Name": "Richard Rose", "Eimg": "10", "EmailId": "richard@mycompany.com" },
+    { "Name": "Gabrielle", "Eimg": "3", "EmailId": "gabrielle@mycompany.com" },
+    { "Name": "Thomas", "Eimg": "7", "EmailId": "thomas@mycompany.com" },
+    { "Name": "Charles Danny", "Eimg": "8", "EmailId": "charles@mycompany.com" },
+    { "Name": "Daniel", "Eimg": "10", "EmailId": "daniel@mycompany.com" },
+    { "Name": "Matthew", "Eimg": "7", "EmailId": "matthew@mycompany.com" },
+    { "Name": "Donald Krish", "Eimg": "9", "EmailId": "donald@mycompany.com" },
+    { "Name": "Yohana", "Eimg": "1", "EmailId": "yohana@mycompany.com" },
+    { "Name": "Kevin Paul", "Eimg": "10", "EmailId": "kevin@mycompany.com" },
+    { "Name": "Andrew Fuller", "Eimg": "3", "EmailId": "andrew@mycompany.com"}
+];
+let container: DocumentEditorContainer = new DocumentEditorContainer({ enableToolbar: true,height: '590px',
+// Enable mention support in document editor
+  documentEditorSettings: {
+    mentionSettings: { dataSource: mentionData, fields: { text: 'Name' }},
+  }
+});
+DocumentEditorContainer.Inject(Toolbar);
+container.serviceUrl = 'https://services.syncfusion.com/js/production/api/documenteditor/';
+container.appendTo('#container');
+```
