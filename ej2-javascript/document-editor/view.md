@@ -8,6 +8,7 @@ publishingplatform: ##Platform_Name##
 documentation: ug
 domainurl: ##DomainURL##
 ---
+# View in ##Platform_Name## Document editor control
 
 ## Web layout
 
