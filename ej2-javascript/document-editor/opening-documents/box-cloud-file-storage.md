@@ -86,11 +86,11 @@ public DocumentEditorController(IWebHostEnvironment hostingEnvironment, IMemoryC
 
 public async Task<string> LoadFromBoxCloud([FromBody] Dictionary<string, string> jsonObject)
 {
-    if (jsonObject == null && !jsonObject.ContainsKey("documentName"))
+    if (jsonObject == null || !jsonObject.TryGetValue("documentName", out string objectName))
     {
-      return null
+        return null;
     }
-    MemoryStream stream = new MemoryStream();
+
     // Initialize the Box API client with your authentication credentials
     var auth = new OAuthSession(_accessToken, "YOUR_REFRESH_TOKEN", 3600, "bearer");
     var config = new BoxConfigBuilder(_clientID, _clientSecret, new Uri("http://boxsdk")).Build();
@@ -103,19 +103,29 @@ public async Task<string> LoadFromBoxCloud([FromBody] Dictionary<string, string>
     // Filter the files based on the objectName
     var matchingFile = files.FirstOrDefault(file => file.Name == objectName);
 
-    // Fetch the file from Box storage by its name
-    var fileStream = await client.FilesManager.DownloadAsync(matchingFile.Id);
-    stream = new MemoryStream();
-    await fileStream.CopyToAsync(stream);
+    if (matchingFile != null)
+    {
+        // Fetch the file from Box storage by its name
+        using (var fileStream = await client.FilesManager.DownloadAsync(matchingFile.Id))
+        {
+            using (var stream = new MemoryStream())
+            {
+                await fileStream.CopyToAsync(stream);
+                stream.Seek(0, SeekOrigin.Begin);
 
-    // Reset the position to the beginning of the stream
-    stream.Position = 0;
-
-    WordDocument document = WordDocument.Load(stream, FormatType.Docx);
-    string json = Newtonsoft.Json.JsonConvert.SerializeObject(document);
-    document.Dispose();
-    stream.Close();
-    return json;
+                // Load WordDocument from stream
+                using (WordDocument document = WordDocument.Load(stream, FormatType.Docx))
+                {
+                    // Serialize document to JSON
+                    return Newtonsoft.Json.JsonConvert.SerializeObject(document);
+                }
+            }
+        }
+    }
+    else
+    {
+        return null; // File not found
+    }
 }
 ```
 

@@ -84,51 +84,55 @@ public DocumentEditorController(IWebHostEnvironment hostingEnvironment, IMemoryC
 public async Task<string> LoadFromGoogleDrive([FromBody] Dictionary<string, string> jsonObject)
 {
 
-  MemoryStream stream = new MemoryStream();
   UserCredential credential;
   using (var stream1 = new FileStream(credentialPath, FileMode.Open, FileAccess.Read))
   {
-    string credPath = "token.json";
-    credential = await GoogleWebAuthorizationBroker.AuthorizeAsync(
-      GoogleClientSecrets.Load(stream1).Secrets,
-      Scopes,
-      "user",
-      CancellationToken.None,
-      new FileDataStore(credPath, true));
+      string credPath = "token.json";
+      credential = await GoogleWebAuthorizationBroker.AuthorizeAsync(
+          GoogleClientSecrets.Load(stream1).Secrets,
+          Scopes,
+          "user",
+          CancellationToken.None,
+          new FileDataStore(credPath, true));
   }
 
-  // Create Google Drive API service.
-  var service = new DriveService(new BaseClientService.Initializer()
+  using (MemoryStream stream = new MemoryStream())
   {
-    HttpClientInitializer = credential,
-    ApplicationName = applicationName,
-  });
-  // List DOCX files in Google Drive
-  listRequest.Q = "mimeType='application/vnd.openxmlformats-officedocument.wordprocessingml.document' and '" + folderId + "' in parents and trashed=false";
-  listRequest.Fields = "files(id, name)";
-  var files = await listRequest.ExecuteAsync();
-  string fileIdToDownload = string.Empty;
-  foreach (var file in files.Files)
-  { 
-    string fileId = file.Id;
-    string fileName = file.Name;
-    if (fileName == objectName)
-    {
-      // Save the matching fileId
-      fileIdToDownload = fileId;
-      break;
-    }
+      // Create Google Drive API service.
+      var service = new DriveService(new BaseClientService.Initializer()
+      {
+          HttpClientInitializer = credential,
+          ApplicationName = applicationName,
+      });
+
+      // List DOCX files in Google Drive
+      listRequest.Q = "mimeType='application/vnd.openxmlformats-officedocument.wordprocessingml.document' and '" + folderId + "' in parents and trashed=false";
+      listRequest.Fields = "files(id, name)";
+      var files = await listRequest.ExecuteAsync();
+
+      string fileIdToDownload = files.Files.FirstOrDefault(file => file.Name == objectName)?.Id;
+
+      if (fileIdToDownload != null)
+      {
+          var request = service.Files.Get(fileIdToDownload);
+          using (var response = await request.DownloadAsync(stream))
+          {
+              // Reset the position of the stream before loading
+              stream.Position = 0;
+
+              // Load WordDocument from stream
+              using (WordDocument document = WordDocument.Load(stream, FormatType.Docx))
+              {
+                  // Serialize document to JSON
+                  return Newtonsoft.Json.JsonConvert.SerializeObject(document);
+              }
+          }
+      }
+      else
+      {
+          return null; // File not found
+      }
   }
-  string fileIds = fileIdToDownload;
-  var request = service.Files.Get(fileIds);
-  await request.DownloadAsync(stream);
-  stream.Position = 0;   
-  
-  WordDocument document = WordDocument.Load(stream, FormatType.Docx);
-  string json = Newtonsoft.Json.JsonConvert.SerializeObject(document);
-  document.Dispose();
-  stream.Close();
-  return json;
 }
 ```
 
