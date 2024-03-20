@@ -82,25 +82,27 @@ public DocumentEditorController(IWebHostEnvironment hostingEnvironment, IMemoryC
 
 public async Task<string> LoadFromDropBox([FromBody] Dictionary<string, string> jsonObject)
 {
-    if (jsonObject == null && !jsonObject.ContainsKey("documentName"))
+    if (jsonObject == null || !jsonObject.TryGetValue("documentName", out string fileName))
     {
-      return null
+        return null;
     }
-    MemoryStream stream = new MemoryStream();
-        
+
     using (var dropBox = new DropboxClient(_accessToken))
     {
         using (var response = await dropBox.Files.DownloadAsync(_folderName + "/" + fileName))
         {
-          var byteArray = await response.GetContentAsByteArrayAsync();
-          stream = new MemoryStream(byteArray);
+            using (var stream = await response.GetContentAsStreamAsync())
+            {
+                // Load WordDocument from stream
+                using (WordDocument document = WordDocument.Load(stream, FormatType.Docx))
+                {
+                    // Serialize document to JSON
+                    return Newtonsoft.Json.JsonConvert.SerializeObject(document);
+                }
+            }
         }
     }
-    WordDocument document = WordDocument.Load(stream, FormatType.Docx);
-    string json = Newtonsoft.Json.JsonConvert.SerializeObject(document);
-    document.Dispose();
-    stream.Close();
-    return json;
+
 } 
 ```
 

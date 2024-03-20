@@ -81,30 +81,31 @@ public DocumentEditorController(IWebHostEnvironment hostingEnvironment, IMemoryC
 
 public async Task<string> LoadFromS3([FromBody] Dictionary<string, string> onObject)
 {
-  MemoryStream stream = new MemoryStream();
-
-  if (jsonObject == null && !jsonObject.ContainsKey("documentName"))
+  if (jsonObject == null || !jsonObject.TryGetValue("documentName", out string documentName))
   {
-     return null;
+      return null;
   }
-  RegionEndpoint bucketRegion = RegionEndpoint.USEast1;
 
-  // Configure the AWS SDK with your access credentials and other settings
-  var s3Client = new AmazonS3Client(_accessKey, _secretKey, bucketRegion);
-      
-  string documentName = jsonObject["documentName"];
-      
-  // Specify the document name or retrieve it from a different source
-  var response = await s3Client.GetObjectAsync(_bucketName, documentName);
-      
-  Stream responseStream = response.ResponseStream;
-  responseStream.CopyTo(stream);
-  stream.Seek(0, SeekOrigin.Begin);
-  WordDocument document = WordDocument.Load(stream, FormatType.Docx);
-  string json = Newtonsoft.Json.JsonConvert.SerializeObject(document);
-  document.Dispose();
-  stream.Close();
-  return json;
+  // Create an AmazonS3Client with proper configuration
+  using (var s3Client = new AmazonS3Client(_accessKey, _secretKey, RegionEndpoint.USEast1))
+  {
+      // Retrieve the object from S3 asynchronously
+      var response = await s3Client.GetObjectAsync(_bucketName, documentName);
+
+      // Read the response stream asynchronously and load it directly into the WordDocument
+      using (var stream = new MemoryStream())
+      {
+          await response.ResponseStream.CopyToAsync(stream);
+          stream.Seek(0, SeekOrigin.Begin);
+
+          // Load WordDocument from stream
+          using (WordDocument document = WordDocument.Load(stream, FormatType.Docx))
+          {
+              // Serialize document to JSON
+              return Newtonsoft.Json.JsonConvert.SerializeObject(document);
+          }
+      }
+  }
 }
 ```
 

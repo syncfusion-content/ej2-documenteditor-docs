@@ -76,22 +76,27 @@ public DocumentEditorController(IConfiguration configuration, ILogger<DocumentEd
   
 public IActionResult LoadFromAzure([FromBody] Dictionary<string, string> jsonObject)
 {
-  MemoryStream stream = new MemoryStream();
-
-  if (jsonObject == null && !jsonObject.ContainsKey("documentName"))
+  if (jsonObject == null || !jsonObject.ContainsKey("documentName"))
   {
-     return null
+      return null;
   }
-  BlobServiceClient blobServiceClient = new BlobServiceClient(_storageConnectionString);
-  string fileName = jsonObject["documentName"];
-  BlobContainerClient containerClient = blobServiceClient.GetBlobContainerClient(_storageContainerName);
-  BlockBlobClient blockBlobClient = containerClient.GetBlockBlobClient(fileName);
-  blockBlobClient.DownloadTo(stream);
-  WordDocument document = WordDocument.Load(stream, FormatType.Docx);
-  string json = Newtonsoft.Json.JsonConvert.SerializeObject(document);
-  document.Dispose();
-  stream.Close();
-  return json;
+
+  using (MemoryStream stream = new MemoryStream())
+  {
+      BlobServiceClient blobServiceClient = new BlobServiceClient(_storageConnectionString);
+      string fileName = jsonObject["documentName"];
+      BlobContainerClient containerClient = blobServiceClient.GetBlobContainerClient(_storageContainerName);
+      BlockBlobClient blockBlobClient = containerClient.GetBlockBlobClient(fileName);
+      
+      // Download document to stream
+      blockBlobClient.DownloadTo(stream);
+
+      // Load WordDocument from stream and serialize directly
+      using (WordDocument document = WordDocument.Load(stream, FormatType.Docx))
+      {
+          return Newtonsoft.Json.JsonConvert.SerializeObject(document);
+      }
+  }
 }
 ```
 

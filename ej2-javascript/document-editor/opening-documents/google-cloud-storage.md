@@ -90,22 +90,27 @@ public DocumentEditorController(IWebHostEnvironment hostingEnvironment, IMemoryC
 
 public async Task<string> LoadFromGoogleCloud([FromBody] Dictionary<string, string> jsonObject)
 {
-    if (jsonObject == null && !jsonObject.ContainsKey("documentName"))
+    if (jsonObject == null || !jsonObject.TryGetValue("documentName", out string objectName))
     {
-      return null
+        return null;
     }
-    MemoryStream stream = new MemoryStream();
 
-    string bucketName = _bucketName;
-    string objectName = jsonObject["document"];
-    _storageClient.DownloadObject(bucketName, objectName, stream);
-    stream.Position = 0;
+    using (MemoryStream stream = new MemoryStream())
+    {
+        string bucketName = _bucketName;
+        string objectName = jsonObject["document"];
+        
+        // Download object from storage directly to the stream
+        _storageClient.DownloadObject(bucketName, objectName, stream);
+        stream.Position = 0; // Reset stream position
 
-    WordDocument document = WordDocument.Load(stream, FormatType.Docx);
-    string json = Newtonsoft.Json.JsonConvert.SerializeObject(document);
-    document.Dispose();
-    stream.Close();
-    return json;
+        // Load WordDocument from stream
+        using (WordDocument document = WordDocument.Load(stream, FormatType.Docx))
+        {
+            // Serialize document to JSON
+            return Newtonsoft.Json.JsonConvert.SerializeObject(document);
+        }
+    }
 }
 ```
 

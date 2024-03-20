@@ -84,49 +84,60 @@ public DocumentEditorController(IWebHostEnvironment hostingEnvironment, IMemoryC
 
 public async Task<string> LoadFromOneDrive([FromBody] Dictionary<string, string> jsonObject)
 {
-  MemoryStream stream = new MemoryStream();
-
   var config = LoadAppSettings();
   var client = GetAuthenticatedGraphClient(config);
 
-  var request = client.Me.Drive.Root.Children.Request();
+  // Initialize variables outside the stream handling block
   string folderIdToSearch = string.Empty;
-  var results = await request.GetAsync();
+  string fileIdToDownload = string.Empty;
 
-  var folder = results.FirstOrDefault(f => f.Name == folderName && f.Folder != null);
+  // Retrieve the root folder children
+  var rootChildrenRequest = client.Me.Drive.Root.Children.Request();
+  var rootChildren = await rootChildrenRequest.GetAsync();
+
+  // Find the folder ID by name
+  var folder = rootChildren.FirstOrDefault(f => f.Name == folderName && f.Folder != null);
   if (folder != null)
   {
-    // Save the matching folderId
-    folderIdToSearch = folder.Id;
+      folderIdToSearch = folder.Id;
+
+      // Retrieve the folder's children
+      var folderChildrenRequest = client.Me.Drive.Items[folderIdToSearch].Children.Request();
+      var folderContents = await folderChildrenRequest.GetAsync();
+
+      // Find the file ID by name
+      var file = folderContents.FirstOrDefault(f => f.File != null && f.Name == objectName);
+      if (file != null)
+      {
+          fileIdToDownload = file.Id;
+
+          // Retrieve the file content
+          var fileContentRequest = client.Me.Drive.Items[fileIdToDownload].Content.Request();
+          using (var streamResponse = await fileContentRequest.GetAsync())
+          {
+              if (streamResponse != null)
+              {
+                  // Load the stream content into the MemoryStream
+                  using (MemoryStream stream = new MemoryStream())
+                  {
+                      streamResponse.Seek(0, SeekOrigin.Begin);
+                      await streamResponse.CopyToAsync(stream);
+                      stream.Position = 0; // Reset stream position before loading
+
+                      // Load WordDocument from stream
+                      using (WordDocument document = WordDocument.Load(stream, FormatType.Docx))
+                      {
+                          // Serialize document to JSON
+                          return Newtonsoft.Json.JsonConvert.SerializeObject(document);
+                      }
+                  }
+              }
+          }
+      }
   }
 
-  var folderRequest = client.Me.Drive.Items[folderIdToSearch].Children.Request();
-  var folderContents = await folderRequest.GetAsync();
+  return null; // File not found or encountered an error
 
-  string fileIdToDownload = string.Empty;
-  var file = folderContents.FirstOrDefault(f => f.File != null && f.Name == objectName);
-  if (file != null)
-  {
-    // Save the matching fileId
-    fileIdToDownload = file.Id;
-  }
-
-  string fileIds = fileIdToDownload;
-  var fileRequest = client.Me.Drive.Items[fileIdToDownload].Content.Request();
-
-  using (var streamResponse = await fileRequest.GetAsync())
-  {
-    if (streamResponse != null)
-    {
-      streamResponse.Seek(0, SeekOrigin.Begin);
-      await streamResponse.CopyToAsync(stream);
-    }
-  }
-  WordDocument document = WordDocument.Load(stream, FormatType.Docx);
-  string json = Newtonsoft.Json.JsonConvert.SerializeObject(document);
-  document.Dispose();
-  stream.Close();
-  return json;
 }
 ```
 
