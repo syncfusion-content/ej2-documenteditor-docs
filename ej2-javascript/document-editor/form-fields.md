@@ -131,3 +131,99 @@ container.documentEditor.editor.stopProtection('123');
 ```
 
 >Note: In enforce Protection method, first parameter denotes password and second parameter denotes protection type. Possible values of protection type are `NoProtection |ReadOnly |FormFieldsOnly |CommentsOnly`. In stop protection method, parameter denotes the password.
+
+## Form Field Settings
+
+Document editor provides options to customize the form field settings using [`formFieldSettings`](../../api/document-editor/documentEditorSettingsModel/#formFieldSettings) in Document editor settings.This functionality allows users to customize various aspects of form fields. These include customizing shading colors, applying these custom colors to form fields, adjusting the color used for selecting form fields, defining the form filling mode, and specifying formatting exceptions for form fields"
+
+### Shading color
+
+By default, the shading color for form fields is '#cfcfcf'. To change it, simply specify a different hexadecimal color value in the shading color property of formFieldSettings.
+
+The following example code illustrates how to customize the shading color property of formFieldSettings in Document editor container.
+
+```ts
+let container: DocumentEditorContainer = new DocumentEditorContainer({ enableToolbar: true,height: '590px',
+  // Customize the shading color property of formFieldSettings.
+  documentEditorSettings: {
+    formFieldSettings : { shadingColor : '#FFFF00' },
+  }
+});
+DocumentEditorContainer.Inject(Toolbar);
+container.serviceUrl = 'https://services.syncfusion.com/js/production/api/documenteditor/';
+container.appendTo('#container');
+```
+
+### Apply shading
+
+By default, the apply shading for form fields is true. To toggle the default shading for form fields, simply switch between true and false.
+
+The following example code illustrates how to customize the apply shading property of form field settings in Document editor container.
+
+```ts
+let container: DocumentEditorContainer = new DocumentEditorContainer({ enableToolbar: true,height: '590px',
+  // Customize the apply shading property of formFieldSettings.
+  documentEditorSettings: {
+    formFieldSettings : { applyShading : false },
+  }
+});
+DocumentEditorContainer.Inject(Toolbar);
+container.serviceUrl = 'https://services.syncfusion.com/js/production/api/documenteditor/';
+container.appendTo('#container');
+```
+
+### Selection color
+
+By default, the selection color for form fields is '#cccccc'. To change it, simply specify a different hexadecimal color value in the shadingColor property of form field settings.
+
+The following example code illustrates how to customize the selection color property of form field settings in Document editor container.
+
+```ts
+let container: DocumentEditorContainer = new DocumentEditorContainer({ enableToolbar: true,height: '590px',
+  // Customize the selection color property of formFieldSettings.
+  documentEditorSettings: {
+    formFieldSettings : { selectionColor : '#FFFF00' },
+  }
+});
+DocumentEditorContainer.Inject(Toolbar);
+container.serviceUrl = 'https://services.syncfusion.com/js/production/api/documenteditor/';
+container.appendTo('#container');
+```
+
+### Form filling mode 
+
+The default form filling mode for form fields is 'Popup'. To change this default behavior, switch between 'Inline' and 'Popup' as needed.
+
+The following example code illustrates how to customize the form filling mode property of form field settings in Document editor container.
+
+```ts
+let container: DocumentEditorContainer = new DocumentEditorContainer({ enableToolbar: true,height: '590px',
+  // Customize the form filling mode property of formFieldSettings.
+  documentEditorSettings: {
+    formFieldSettings : { formFillingMode : 'Inline' },
+  }
+});
+DocumentEditorContainer.Inject(Toolbar);
+container.serviceUrl = 'https://services.syncfusion.com/js/production/api/documenteditor/';
+container.appendTo('#container');
+```
+
+### Formatting exceptions
+
+The default formatting exceptions for form fields are an empty array, indicating no exceptions. To modify this default behavior, specify the desired formatting exceptions in the array assigned to the formattingExceptions property, utilizing the provided list of acceptable values.
+
+The customizable options for formatting exceptions in form fields include: 'Bold', 'Italic', 'FontSize', 'FontFamily', 'HighlightColor', 'BaselineAlignment', 'Strikethrough', 'Underline', 'FontColor', 'TextAlignment', 'LeftIndent', 'RightIndent', 'LineSpacing', 'LineSpacingType', 'FirstLineIndent', 'AfterSpacing', 'BeforeSpacing', 'ContextualSpacing', and 'ListFormat'.
+
+The following example code illustrates how to customize the formatting exceptions property of form field settings in Document editor container.
+
+```ts
+let container: DocumentEditorContainer = new DocumentEditorContainer({ enableToolbar: true,height: '590px',
+  // Customize the formatting exceptions property of formFieldSettings.
+  documentEditorSettings: {
+    formFieldSettings : { formattingExceptions : ['Bold'] },
+  }
+});
+DocumentEditorContainer.Inject(Toolbar);
+container.serviceUrl = 'https://services.syncfusion.com/js/production/api/documenteditor/';
+container.appendTo('#container');
+```
