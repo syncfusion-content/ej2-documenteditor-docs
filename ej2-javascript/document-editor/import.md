@@ -73,6 +73,64 @@ The following example shows how to import document from local machine.
 {% previewsample "page.domainurl/code-snippet/document-editor/import-sfdt-cs1" %}
 {% endif %}
 
+## Opening document from URL
+
+In this article, we are going to see how to open a document from URL in DocumentEditor
+
+please refer below example for client-side code
+
+```ts
+//Initialize Document Editor Container component.
+let container: DocumentEditorContainer = new DocumentEditorContainer();
+
+container.appendTo('#DocumentEditorContainer');
+
+document.getElementById('import').addEventListener('click', () => {
+    let http: XMLHttpRequest = new XMLHttpRequest();
+    //add your url in which you want to open document inside the ""
+    let content = { fileUrl: "" };
+    let baseurl: string = "/api/documenteditor/ImportFileURL";
+    http.open("POST", baseurl, true);
+    http.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    http.onreadystatechange = () => {
+        if (http.readyState === 4) {
+            if (http.status === 200 || http.status === 304) {
+                //open the SFDT text in Document Editor
+                container.documentEditor.open(http.responseText);
+            }
+        }
+    };
+    http.send(JSON.stringify(content));
+});
+```
+
+please refer below example for server-side code
+
+```c#
+    [AcceptVerbs("Post")]
+    public string ImportFileURL([FromBody]FileUrlInfo param)
+    {
+        try {
+            using(WebClient client = new WebClient())
+            {
+                MemoryStream stream = new MemoryStream(client.DownloadData(param.fileUrl));
+                WordDocument document = WordDocument.Load(stream, FormatType.Docx);
+                string json = Newtonsoft.Json.JsonConvert.SerializeObject(document);
+                document.Dispose();
+                stream.Dispose();
+                return json;
+            }
+        }
+        catch (Exception) {
+            return "";
+        }
+    }
+    public class FileUrlInfo {
+        public string fileUrl { get; set; }
+        public string Content { get; set; }
+    }
+```
+
 ## Convert word documents into SFDT
 
 You can convert word documents into SFDT format using the .NET Standard library [`Syncfusion.EJ2.WordEditor.AspNet.Core`](<https://www.nuget.org/packages/Syncfusion.EJ2.WordEditor.AspNet.Core/>) by the web API service implementation. This library helps you to convert word documents (.dotx,.docx,.docm,.dot,.doc), rich text format documents (.rtf), and text documents (.txt) into SFDT format.
