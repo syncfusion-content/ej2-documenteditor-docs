@@ -203,27 +203,7 @@ The following table illustrates the reasons for pagination (page-by-page display
 |Any unsupported elements or formatting present in your document |Customer can report to Syncfusion support and track the status through feature request link.   Syncfusion implements unsupported features incrementally in future releases based on feature importance, customer interest, efforts involved, and technological feasibility. Also, suggests alternate approach for possible cases.|
 |Technical limitation related to framework   For example, there is a known case with slight fractional difference in text size measured using HTML and Microsoft Word’s display.|Customer can report to Syncfusion support and track the status through feature request link.  Syncfusion does research about alternate approaches to overcome the technical limitation/behaviors and process it same as a feature. >Note: Here the challenge is, time schedule for implementation varies based on the alternate solution and its reliability.|
 
-## See Also
-
-* [Feature modules](../document-editor/feature-module/)
-* [How to show and hide spinner while opening document in DocumentEditor](../document-editor/how-to/show-hide-spinner)
-
 ## Opening document from URL
-
----
-layout: post
-title: Open document by address in ##Platform_Name## Document editor control | Syncfusion
-description: Learn here all about Open document by address in Syncfusion ##Platform_Name## Document editor control of Syncfusion Essential JS 2 and more.
-platform: ej2-javascript
-control: Open document by address 
-publishingplatform: ##Platform_Name##
-documentation: ug
-domainurl: ##DomainURL##
----
-
-### Open document by address in ##Platform_Name## Document editor control
-
-#### How to open a document from URL in DocumentEditor
 
 In this article, we are going to see how to open a document from URL in DocumentEditor
 
@@ -280,3 +260,9 @@ please refer below example for server-side code
         public string Content { get; set; }
     }
 ```
+
+## See Also
+
+* [Feature modules](../document-editor/feature-module/)
+* [How to show and hide spinner while opening document in DocumentEditor](../document-editor/how-to/show-hide-spinner)
+
