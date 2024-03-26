@@ -129,7 +129,7 @@ please refer below example for server-side code
         public string fileUrl { get; set; }
         public string Content { get; set; }
     }
-```
+```  
 
 ## Convert word documents into SFDT
 
@@ -137,7 +137,7 @@ You can convert word documents into SFDT format using the .NET Standard library 
 
 >Note: The Syncfusion Document Editor component's document pagination (page-by-page display) can't be guaranteed for all the Word documents to match the pagination of Microsoft Word application. For more information about [why the document pagination (page-by-page display) differs from Microsoft Word](../document-editor/import/#why-the-document-pagination-differs-from-microsoft-word)
 
-Please refer the following example for converting word documents into SFDT.
+Please refer the following example for converting word documents into SFDT.  
 
 ```ts
 import { DocumentEditor } from '@syncfusion/ej2-documenteditor';
