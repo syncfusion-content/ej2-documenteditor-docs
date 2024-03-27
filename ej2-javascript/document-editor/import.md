@@ -129,7 +129,97 @@ please refer below example for server-side code
         public string fileUrl { get; set; }
         public string Content { get; set; }
     }
-```  
+```
+
+## Opening a Base64 Document
+
+In this article, we are going to see how to open a base64 document in DocumentEditor
+
+{% if page.publishingplatform == "typescript" %}
+
+```ts
+
+//Initialize Document Editor Container component.
+let container: DocumentEditorContainer = new DocumentEditorContainer();
+
+container.appendTo('#DocumentEditorContainer');
+
+function openBase64Document() {
+    let base64Document: string = '<base64>';
+    // Decode the Base64 string
+    let binaryString: string = atob(base64Document);
+    // Convert the binary string to an array buffer
+    let byteArray: Uint8Array = new Uint8Array(binaryString.length);
+    for (let i = 0; i < binaryString.length; i++) {
+        byteArray[i] = binaryString.charCodeAt(i);
+    }
+    // Create a Blob from the array buffer
+    let blob: Blob = new Blob([byteArray], { type: 'application/octet-stream' });
+    // Create form data with the blob
+    let formData: FormData = new FormData();
+    formData.append('file', blob, 'GiantPanda.docx');
+    let apiUrl: string = 'https://services.syncfusion.com/react/production/api/documentedtor/import';
+    // Now, send formData to your WebAPI for converting Word Document(.docx) to Syncfusion Document Text(.sfdt)
+    let xhrUpload: XMLHttpRequest = new XMLHttpRequest();
+    xhrUpload.open('POST', apiUrl, true);
+    xhrUpload.onload = function () {
+        if (xhrUpload.status === 200) {
+            // Open the sfdt response from the web api in client-side open api.
+            container.current.documentEditor.open(xhrUpload.responseText);
+        } else {
+            console.error('Error uploading file: ', xhrUpload.statusText);
+        }
+    };
+    xhrUpload.onerror = function () {
+        console.error('Network error occurred while trying to upload file.');
+    };
+    xhrUpload.send(formData);
+}
+document.getElementById('import').addEventListener('click', openBase64Document);
+
+```
+
+{% elsif page.publishingplatform == "javascript" %}
+
+```js
+
+//Initialize Document Editor Container component.
+var container = new DocumentEditorContainer();
+container.appendTo('#DocumentEditorContainer');
+function openBase64Document() {
+    let base64Document = '<base64>';
+    // Decode the Base64 string
+    var binaryString = atob(base64Document);
+    // Convert the binary string to an array buffer
+    var byteArray = new Uint8Array(binaryString.length);
+    for (var i = 0; i < binaryString.length; i++) {
+        byteArray[i] = binaryString.charCodeAt(i);
+    }
+    // Create a Blob from the array buffer
+    var blob = new Blob([byteArray], { type: 'application/octet-stream' });
+    // Create form data with the blob
+    var formData = new FormData();
+    formData.append('file', blob, 'GiantPanda.docx');
+    var apiUrl = 'https://services.syncfusion.com/react/production/api/documentedtor/import';
+    // Now, send formData to your WebAPI for converting Word Document(.docx) to Syncfusion Document Text(.sfdt)
+    var xhrUpload = new XMLHttpRequest();
+    xhrUpload.open('POST', apiUrl, true);
+    xhrUpload.onload = function () {
+        if (xhrUpload.status === 200) {
+            // Open the sfdt response from the web api in client-side open api.
+            container.current.documentEditor.open(xhrUpload.responseText);
+        } else {
+            console.error('Error uploading file: ', xhrUpload.statusText);
+        }
+    };
+    xhrUpload.onerror = function () {
+        console.error('Network error occurred while trying to upload file.');
+    };
+    xhrUpload.send(formData);
+}
+
+document.getElementById('import').addEventListener('click', openBase64Document);
+```
 
 ## Convert word documents into SFDT
 
