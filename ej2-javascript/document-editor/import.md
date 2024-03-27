@@ -73,13 +73,161 @@ The following example shows how to import document from local machine.
 {% previewsample "page.domainurl/code-snippet/document-editor/import-sfdt-cs1" %}
 {% endif %}
 
+## Opening document from URL
+
+In this article, we are going to see how to open a document from URL in DocumentEditor
+
+please refer below example for client-side code
+
+```ts
+//Initialize Document Editor Container component.
+let container: DocumentEditorContainer = new DocumentEditorContainer();
+
+container.appendTo('#DocumentEditorContainer');
+
+document.getElementById('import').addEventListener('click', () => {
+    let http: XMLHttpRequest = new XMLHttpRequest();
+    //add your url in which you want to open document inside the ""
+    let content = { fileUrl: "" };
+    let baseurl: string = "/api/documenteditor/ImportFileURL";
+    http.open("POST", baseurl, true);
+    http.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    http.onreadystatechange = () => {
+        if (http.readyState === 4) {
+            if (http.status === 200 || http.status === 304) {
+                //open the SFDT text in Document Editor
+                container.documentEditor.open(http.responseText);
+            }
+        }
+    };
+    http.send(JSON.stringify(content));
+});
+```
+
+please refer below example for server-side code
+
+```c#
+    [AcceptVerbs("Post")]
+    public string ImportFileURL([FromBody]FileUrlInfo param)
+    {
+        try {
+            using(WebClient client = new WebClient())
+            {
+                MemoryStream stream = new MemoryStream(client.DownloadData(param.fileUrl));
+                WordDocument document = WordDocument.Load(stream, FormatType.Docx);
+                string json = Newtonsoft.Json.JsonConvert.SerializeObject(document);
+                document.Dispose();
+                stream.Dispose();
+                return json;
+            }
+        }
+        catch (Exception) {
+            return "";
+        }
+    }
+    public class FileUrlInfo {
+        public string fileUrl { get; set; }
+        public string Content { get; set; }
+    }
+```
+
+## Opening a Base64 Document
+
+In this article, we are going to see how to open a base64 document in DocumentEditor
+
+{% if page.publishingplatform == "typescript" %}
+
+```ts
+
+//Initialize Document Editor Container component.
+let container: DocumentEditorContainer = new DocumentEditorContainer();
+
+container.appendTo('#DocumentEditorContainer');
+
+function openBase64Document() {
+    let base64Document: string = '<base64>';
+    // Decode the Base64 string
+    let binaryString: string = atob(base64Document);
+    // Convert the binary string to an array buffer
+    let byteArray: Uint8Array = new Uint8Array(binaryString.length);
+    for (let i = 0; i < binaryString.length; i++) {
+        byteArray[i] = binaryString.charCodeAt(i);
+    }
+    // Create a Blob from the array buffer
+    let blob: Blob = new Blob([byteArray], { type: 'application/octet-stream' });
+    // Create form data with the blob
+    let formData: FormData = new FormData();
+    formData.append('file', blob, 'GiantPanda.docx');
+    let apiUrl: string = 'https://services.syncfusion.com/react/production/api/documentedtor/import';
+    // Now, send formData to your WebAPI for converting Word Document(.docx) to Syncfusion Document Text(.sfdt)
+    let xhrUpload: XMLHttpRequest = new XMLHttpRequest();
+    xhrUpload.open('POST', apiUrl, true);
+    xhrUpload.onload = function () {
+        if (xhrUpload.status === 200) {
+            // Open the sfdt response from the web api in client-side open api.
+            container.current.documentEditor.open(xhrUpload.responseText);
+        } else {
+            console.error('Error uploading file: ', xhrUpload.statusText);
+        }
+    };
+    xhrUpload.onerror = function () {
+        console.error('Network error occurred while trying to upload file.');
+    };
+    xhrUpload.send(formData);
+}
+document.getElementById('import').addEventListener('click', openBase64Document);
+
+```
+
+{% elsif page.publishingplatform == "javascript" %}
+
+```js
+
+//Initialize Document Editor Container component.
+var container = new DocumentEditorContainer();
+container.appendTo('#DocumentEditorContainer');
+function openBase64Document() {
+    let base64Document = '<base64>';
+    // Decode the Base64 string
+    var binaryString = atob(base64Document);
+    // Convert the binary string to an array buffer
+    var byteArray = new Uint8Array(binaryString.length);
+    for (var i = 0; i < binaryString.length; i++) {
+        byteArray[i] = binaryString.charCodeAt(i);
+    }
+    // Create a Blob from the array buffer
+    var blob = new Blob([byteArray], { type: 'application/octet-stream' });
+    // Create form data with the blob
+    var formData = new FormData();
+    formData.append('file', blob, 'GiantPanda.docx');
+    var apiUrl = 'https://services.syncfusion.com/react/production/api/documentedtor/import';
+    // Now, send formData to your WebAPI for converting Word Document(.docx) to Syncfusion Document Text(.sfdt)
+    var xhrUpload = new XMLHttpRequest();
+    xhrUpload.open('POST', apiUrl, true);
+    xhrUpload.onload = function () {
+        if (xhrUpload.status === 200) {
+            // Open the sfdt response from the web api in client-side open api.
+            container.current.documentEditor.open(xhrUpload.responseText);
+        } else {
+            console.error('Error uploading file: ', xhrUpload.statusText);
+        }
+    };
+    xhrUpload.onerror = function () {
+        console.error('Network error occurred while trying to upload file.');
+    };
+    xhrUpload.send(formData);
+}
+
+document.getElementById('import').addEventListener('click', openBase64Document);
+```
+
 ## Convert word documents into SFDT
 
 You can convert word documents into SFDT format using the .NET Standard library [`Syncfusion.EJ2.WordEditor.AspNet.Core`](<https://www.nuget.org/packages/Syncfusion.EJ2.WordEditor.AspNet.Core/>) by the web API service implementation. This library helps you to convert word documents (.dotx,.docx,.docm,.dot,.doc), rich text format documents (.rtf), and text documents (.txt) into SFDT format.
 
 >Note: The Syncfusion Document Editor component's document pagination (page-by-page display) can't be guaranteed for all the Word documents to match the pagination of Microsoft Word application. For more information about [why the document pagination (page-by-page display) differs from Microsoft Word](../document-editor/import/#why-the-document-pagination-differs-from-microsoft-word)
 
-Please refer the following example for converting word documents into SFDT.
+Please refer the following example for converting word documents into SFDT.  
 
 ```ts
 import { DocumentEditor } from '@syncfusion/ej2-documenteditor';
