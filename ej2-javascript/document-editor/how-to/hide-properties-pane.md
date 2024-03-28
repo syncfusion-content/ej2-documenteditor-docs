@@ -34,7 +34,7 @@ container.appendTo('#container');
 ```js
 import { DocumentEditorContainer, Toolbar } from '@syncfusion/ej2-documenteditor';
 
-DocumentEditorContainer.Inject(Toolbar);
+DocumentEditorContainer.Inject(Toolbar); 
 
 var container = new DocumentEditorContainer({ height: '590px', showPropertiesPane:false });
 
