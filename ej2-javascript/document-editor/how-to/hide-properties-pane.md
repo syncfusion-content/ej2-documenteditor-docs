@@ -22,7 +22,7 @@ import { DocumentEditorContainer, Toolbar } from '@syncfusion/ej2-documenteditor
 
 DocumentEditorContainer.Inject(Toolbar);
 
-let container: DocumentEditorContainer = new DocumentEditorContainer({ enableToolbar: true, height: '590px', showPropertiesPane:false });
+let container: DocumentEditorContainer = new DocumentEditorContainer({ height: '590px', showPropertiesPane:false });
 
 container.serviceUrl = 'https://services.syncfusion.com/js/production/api/documenteditor/';
 
@@ -36,7 +36,7 @@ import { DocumentEditorContainer, Toolbar } from '@syncfusion/ej2-documenteditor
 
 DocumentEditorContainer.Inject(Toolbar);
 
-var container = new DocumentEditorContainer({ enableToolbar: true, height: '590px', showPropertiesPane:false });
+var container = new DocumentEditorContainer({ height: '590px', showPropertiesPane:false });
 
 container.serviceUrl = 'https://services.syncfusion.com/js/production/api/documenteditor/';
 
